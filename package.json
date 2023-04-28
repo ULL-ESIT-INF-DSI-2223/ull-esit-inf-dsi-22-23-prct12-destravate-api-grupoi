@@ -1,0 +1,38 @@
+{
+  "name": "destravate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "prettier": "npx prettier --write .",
+    "test": "mocha",
+    "doc": "typedoc; touch ./docs/.nojekyll",
+    "coverage": "c8 npm test && c8 report --reporter=lcov"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "c8": "^7.13.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "mocha": "^10.2.0",
+    "prettier": "^2.8.7",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.0",
+    "typedoc": "^0.23.28",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,12 @@
+dist
+
+.nyc_output
+.eslintrc.json
+.pretterignore
+.prettierrc.json
+.mocharc.json
+package-lock.json
+package.json
+tsconfig.json
+typedoc.json
+README.md
