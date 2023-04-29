@@ -1,11 +1,25 @@
 import { GeneradorIdUnicos } from "./GeneradorIdUnicos.js";
 import { EstadisticasEntrenamiento } from "./EstadisticasEntrenamiento.js";
-
+/**
+ * IGrupoData - Representa Data necesitada para describir un Grupo
+ * @interface
+ */
+export interface IGrupoData {
+  _id: string;
+  _nombre: string;
+  _miembrosID: string[];
+  _propietarioID: string;
+  _estadisticas: EstadisticasEntrenamiento;
+  _ranking: string[];
+  _rutasFav: string[];
+  _historicoRutas: Map<string, string[]>;
+}
 /**
  * Clase que representa un grupo de entrenamiento
  * @class
+ * @implements - @interface IGrupoData
  */
-export class Grupo {
+export class Grupo implements IGrupoData{
   private _id: string;
   private _nombre: string;
   private _miembrosID: string[];
@@ -39,6 +53,33 @@ export class Grupo {
     if (this._miembrosID.length !== 0) {
       this.ordenarRankingPorKmAcumulado();
     }
+  }
+  /**
+   * Metodo que parsea un Grupo recibiendo data
+   * @param data - JSON data
+   * @returns Un nuevo Grupo de los datos recibidos
+   */
+  public parse(data: IGrupoData): Grupo {
+    return new Grupo(
+      data._nombre,
+      data._miembrosID
+    );
+  }
+  /**
+   * Metodo que convierte una clase Grupo a un modelo de datos de JSON
+   * @returns Grupo Data a modelo JSON
+   */
+  public toJSON(): IGrupoData {
+    return {
+      _nombre: this.nombre,
+      _miembrosID: this.miembrosID,
+      _id: this.id,
+      _propietarioID: this.propietarioID,
+      _estadisticas: this.estadisticas,
+      _ranking: this.ranking,
+      _rutasFav: this.rutasFav,
+      _historicoRutas: this.historicoRutas
+    };
   }
 
   // Getters
