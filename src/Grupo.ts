@@ -5,14 +5,14 @@ import { EstadisticasEntrenamiento } from "./EstadisticasEntrenamiento.js";
  * @interface
  */
 export interface IGrupoData {
-  _id: string;
-  _nombre: string;
-  _miembrosID: string[];
-  _propietarioID: string;
-  _estadisticas: EstadisticasEntrenamiento;
-  _ranking: string[];
-  _rutasFav: string[];
-  _historicoRutas: Map<string, string[]>;
+  id: string;
+  nombre: string;
+  miembrosID: string[];
+  propietarioID: string;
+  estadisticas: EstadisticasEntrenamiento;
+  ranking: string[];
+  rutasFav: string[];
+  historicoRutas: Map<string, string[]>;
 }
 /**
  * Clase que representa un grupo de entrenamiento
@@ -60,10 +60,18 @@ export class Grupo implements IGrupoData{
    * @returns Un nuevo Grupo de los datos recibidos
    */
   public parse(data: IGrupoData): Grupo {
-    return new Grupo(
-      data._nombre,
-      data._miembrosID
-    );
+    this._id = data.id;
+    this._nombre = data.nombre;
+    this._miembrosID = data.miembrosID;
+    this._estadisticas = data.estadisticas;
+    this._ranking = data.ranking;
+    this._rutasFav = data.rutasFav;
+    this._historicoRutas = data.historicoRutas;
+
+    if (this._miembrosID.length !== 0) {
+      this.ordenarRankingPorKmAcumulado();
+    }
+    return this;
   }
   /**
    * Metodo que convierte una clase Grupo a un modelo de datos de JSON
@@ -71,17 +79,17 @@ export class Grupo implements IGrupoData{
    */
   public toJSON(): IGrupoData {
     return {
-      _nombre: this.nombre,
-      _miembrosID: this.miembrosID,
-      _id: this.id,
-      _propietarioID: this.propietarioID,
-      _estadisticas: this.estadisticas,
-      _ranking: this.ranking,
-      _rutasFav: this.rutasFav,
-      _historicoRutas: this.historicoRutas
+      nombre: this._nombre,
+      miembrosID: this._miembrosID,
+      id: this._id,
+      propietarioID: this._propietarioID,
+      estadisticas: this._estadisticas,
+      ranking: this._ranking,
+      rutasFav: this._rutasFav,
+      historicoRutas: this._historicoRutas
     };
   }
-
+  
   // Getters
 
   /**
