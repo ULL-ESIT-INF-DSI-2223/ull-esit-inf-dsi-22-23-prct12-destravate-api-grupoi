@@ -1,13 +1,24 @@
 import { Actividad } from "./Actividad.js";
 import { Ruta } from "./Ruta.js";
 import { GeneradorIdUnicos } from "./GeneradorIdUnicos.js"
-
-
+/**
+ * IRetoData - Representa Data necesitada para describir un Reto
+ * @interface
+ */
+export interface IRetoData {
+    id: string;
+    nombre: string;
+    rutas: string[];
+    actividad: Actividad;
+    total: number;
+    usuarios: string[];
+}
 /**
  * Clase para los retos
  * @class
+ * @implements - @interface IRetoData
  */
-export class Reto{
+export class Reto implements IRetoData{
     private _id: string;
     private _nombre: string;
     private _rutas: string[];
@@ -34,7 +45,34 @@ export class Reto{
         this._total = 0;
         this._usuarios = usuarios;
     }
-
+    /**
+     * Metodo que parsea un Reto recibiendo data
+     * @param data - JSON data
+     * @returns Un nuevo Reto de los datos recibidos
+     */
+    public parse(data: IRetoData): Reto {
+        this._id = data.id;
+        this._nombre = data.nombre;
+        this._rutas = data.rutas;
+        this._actividad = data.actividad;
+        this._total = data.total;
+        this._usuarios = data.usuarios;
+        return this;
+    }
+    /**
+     * Metodo que convierte una clase Reto a un modelo de datos de JSON
+     * @returns Reto Data a modelo JSON
+     */
+    public toJSON(): IRetoData {
+        return {
+            id: this._id,
+            nombre: this._nombre,
+            rutas: this._rutas,
+            actividad: this._actividad,
+            total: this._total,
+            usuarios: this._usuarios
+        };
+    }
     /****************************Getters y Setters*******************************/
     /**
      * Getter del atributo privado _id

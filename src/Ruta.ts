@@ -11,12 +11,27 @@ export interface Geolocalizacion{
     latitud: number;
     longitud: number;
 }
-
+/**
+ * IRutaData - Representa Data necesitada para describir una Ruta
+ * @interface
+ */
+export interface IRutaData {
+    id: string;
+    nombre: string;
+    inicio: Geolocalizacion;
+    final: Geolocalizacion;
+    longitud: number;
+    desnivel: number;
+    usuarios: string[];
+    actividad: Actividad;
+    calificacion: number;
+}
 /**
  * Clase para las rutas
  * @class
+ * @implements - @interface IRutaData
  */
-export class Ruta {
+export class Ruta implements IRutaData{
     private _id: string;
     private _nombre: string;
     private _inicio: Geolocalizacion;
@@ -52,7 +67,40 @@ export class Ruta {
         this._actividad = actividad;
         this._calificacion = calificacion;
     }
-
+    /**
+     * Metodo que parsea una Ruta recibiendo data
+     * @param data - JSON data
+     * @returns Una nueva Ruta de los datos recibidos
+     */
+    public parse(data: IRutaData): Ruta {
+        this._id = data.id;
+        this._nombre = data.nombre;
+        this._inicio = data.inicio;
+        this._final = data.final;
+        this._longitud = data.longitud;
+        this._desnivel = data.desnivel;
+        this._usuarios = data.usuarios;
+        this._actividad = data.actividad;
+        this._calificacion = data.calificacion;
+        return this;
+    }
+    /**
+     * Metodo que convierte una clase Ruta a un modelo de datos de JSON
+     * @returns Reto Data a un modelo JSON
+     */
+    public toJSON(): IRutaData {
+        return {
+            id: this._id,
+            nombre: this._nombre,
+            inicio: this._inicio,
+            final: this._final,
+            longitud: this._longitud,
+            desnivel: this._desnivel,
+            usuarios: this._usuarios,
+            actividad: this._actividad,
+            calificacion: this._calificacion
+        };
+    }
     /****************************Getters y Setters*******************************/
     /**
      * Getter del atributo privado _id
