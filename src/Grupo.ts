@@ -1,11 +1,25 @@
 import { GeneradorIdUnicos } from "./GeneradorIdUnicos.js";
 import { EstadisticasEntrenamiento } from "./EstadisticasEntrenamiento.js";
-
+/**
+ * IGrupoData - Representa Data necesitada para describir un Grupo
+ * @interface
+ */
+export interface IGrupoData {
+  id: string;
+  nombre: string;
+  miembrosID: string[];
+  propietarioID: string;
+  estadisticas: EstadisticasEntrenamiento;
+  ranking: string[];
+  rutasFav: string[];
+  historicoRutas: Map<string, string[]>;
+}
 /**
  * Clase que representa un grupo de entrenamiento
  * @class
+ * @implements - @interface IGrupoData
  */
-export class Grupo {
+export class Grupo implements IGrupoData{
   private _id: string;
   private _nombre: string;
   private _miembrosID: string[];
@@ -40,7 +54,42 @@ export class Grupo {
       this.ordenarRankingPorKmAcumulado();
     }
   }
+  /**
+   * Metodo que parsea un Grupo recibiendo data
+   * @param data - JSON data
+   * @returns Un nuevo Grupo de los datos recibidos
+   */
+  public parse(data: IGrupoData): Grupo {
+    this._id = data.id;
+    this._nombre = data.nombre;
+    this._miembrosID = data.miembrosID;
+    this._estadisticas = data.estadisticas;
+    this._ranking = data.ranking;
+    this._rutasFav = data.rutasFav;
+    this._historicoRutas = data.historicoRutas;
 
+    if (this._miembrosID.length !== 0) {
+      this.ordenarRankingPorKmAcumulado();
+    }
+    return this;
+  }
+  /**
+   * Metodo que convierte una clase Grupo a un modelo de datos de JSON
+   * @returns Grupo Data a modelo JSON
+   */
+  public toJSON(): IGrupoData {
+    return {
+      nombre: this._nombre,
+      miembrosID: this._miembrosID,
+      id: this._id,
+      propietarioID: this._propietarioID,
+      estadisticas: this._estadisticas,
+      ranking: this._ranking,
+      rutasFav: this._rutasFav,
+      historicoRutas: this._historicoRutas
+    };
+  }
+  
   // Getters
 
   /**

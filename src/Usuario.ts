@@ -1,19 +1,33 @@
 import { GeneradorIdUnicos } from "./GeneradorIdUnicos.js";
 import {Actividad} from "./Actividad.js";
 import { EstadisticasEntrenamiento } from "./EstadisticasEntrenamiento.js";
-
+/**
+ * IUsuarioData - Representa Data necesitada para describir un Usuario
+ * @interface
+ */
+export interface IUsuarioData {
+    id: string;
+    nombre: string;
+    actividad: Actividad;
+    amigos: string[];
+    grupos: string[];
+    estadisticas: EstadisticasEntrenamiento;
+    rutas: string[];
+    retos: string[];
+    historicoRutas: Map<string, string[]>;
+}
 /**
  * Clase para Usuarios
+ * @class
+ * @implements - @interface IUsuarioData
  */
-export class Usuario {
-    
-    private _id:string;
+export class Usuario implements IUsuarioData {
+    private _id: string;
     private _nombre:string;
     private _actividad:Actividad;
     private _amigos: string[];
     private _grupos: string[]; // _grupos CLASE
     private _estadisticas : EstadisticasEntrenamiento;
-
     private _rutas:string[]; // RUTAS CLASE
     private _retos:string[]; // _retos CLASE
     private _historicoRutas: Map<string, string[]>;
@@ -27,20 +41,47 @@ export class Usuario {
         // Se genera el id único
         let generadorId = GeneradorIdUnicos.getInstance();
         this._id = generadorId.generateUniqueId();
-
-    
-    
-    
-    
         this._amigos = [];
         this._grupos = []; // _grupos CLASE
         this._estadisticas = new EstadisticasEntrenamiento();
-
-    this._rutas = []; // RUTAS CLASE
-    this._retos = []; // _retos CLASE
-    this._historicoRutas = new Map<string, string[]>();
+        this._rutas = []; // RUTAS CLASE
+        this._retos = []; // _retos CLASE
+        this._historicoRutas = new Map<string, string[]>();
     }
-
+    /**
+     * Metodo que parsea un Usuario recibiendo data
+     * @param data - JSON data
+     * @returns Un nuevo Usuario de los datos recibidos
+     */
+    public parse(data: IUsuarioData): Usuario {
+        this._id = data.id;
+        this._nombre = data.nombre;
+        this._actividad = data.actividad;
+        this._amigos = data.amigos;
+        this._grupos = data.grupos;
+        this._estadisticas = data.estadisticas;
+        this._rutas = data.rutas;
+        this._retos = data.retos;
+        this._historicoRutas = data.historicoRutas;
+        return this;
+    }
+    /**
+     * Metodo que convierte una clase Usuario a un modelo de datos de JSON
+     * @returns Usuario Data a un modelo JSON
+     */
+    public toJSON(): IUsuarioData {
+        return {
+            id: this._id,
+            nombre: this._nombre,
+            actividad: this._actividad,
+            amigos: this._amigos,
+            grupos: this._grupos,
+            estadisticas: this._estadisticas,
+            rutas: this._rutas,
+            retos: this._retos,
+            historicoRutas: this._historicoRutas
+        }
+    }
     // Getters
 
     /**
@@ -55,7 +96,7 @@ export class Usuario {
      * Getter del id del usuario
      * @returns el atributo que almacena el id del usuario
      */
-    get Id(){
+    get id(){
         return this._id;
     }
     
@@ -119,7 +160,7 @@ export class Usuario {
      * 
      * @param value El valor que se asignará al atributo.
      */
-    set Id(value: string) {
+    set id(value: string) {
         this._id = value;
     }
     
