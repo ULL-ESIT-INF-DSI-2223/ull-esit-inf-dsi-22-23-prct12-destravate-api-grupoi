@@ -9,6 +9,8 @@ import {IRetoData} from './Reto.js';
 import {IUsuarioData, Usuario} from './Usuario.js';
 
 import Ajv from 'ajv';
+import { Grupo } from './Grupo.js';
+import { Reto } from './Reto.js';
 const ajv = new Ajv();
 
 export const app = express();
@@ -311,7 +313,7 @@ app.post('/users', (req, res) => {
                 type: 'add',
                 success: false,
                 output: undefined,
-                error: validate.errors
+                error: validate1.errors
             };
             res.status(400).json({error: error});
         }
@@ -405,16 +407,392 @@ app.patch('/users', (req, res) => {
                 type: 'update',
                 success: false,
                 output: undefined,
-                error: validate.errors
+                error: validate1.errors
             };
             res.status(400).json({error: error});
         } 
     }
 });
 /**********************GRUPOS********************************/
+/**
+ * Schema to validate json files
+ */
+const schema_group = {
+    type: 'object',
+    properties: {
+        id: { id: 'string' },
+        nombre: { nombre: 'string' },
+        miembrosID: { miembrosID: 'string[]' },
+        propietariosID: { propietariosID: 'string' },
+        estadisticas: { estadisticas: 'EstadisticasEntrenamiento' },
+        ranking: { ranking: 'string[]' },
+        rutasFav: { rutasFav: 'string[]' },
+        historicoRutas: { historicoRutas: 'Map<string, string[]>' },
+    },
+    required: ['id','nombre','miembrosID','propietarioID','estadisticas','ranking','rutasFav','historicoRutas'],
+};
+const validate2 = ajv.compile(schema_group);
 
+/**
+ * Lista un grupo
+ */
+app.get('/groups', (req, res) => {
+    const gestor = new Gestor();
+    if(req.query.nombre){
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    gestor.showGroup(nombre, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+    }else if(req.query.id){
+    //Por Id
+    const id = req.query.id.toString();
+    gestor.showGroup(id, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+
+    }else{
+        const outputError: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: 'Un nombre o un id deben ser introducidos'
+        }
+        res.status(400).send({
+            error: outputError
+        })
+    }
+})
+
+/**
+ * Añade un grupo
+ */
+app.post('/groups', (req, res) => {
+    if (!req.body) {
+        const error: ResponseType<string> = {
+            type: 'add',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del grupo'
+        }
+        res.status(400).send({
+            error: error
+        })
+    } else {
+        const gestor = new Gestor();
+        const groupData: IGrupoData = req.body;
+        const isValid = validate2(req.body);
+        if (isValid) {
+            const newGrupo = new Grupo("",[]).parse(groupData);
+            gestor.addGrupo(newGrupo, (err, result) => {
+                if(err){
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            });
+        } else {
+            const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+                type: 'add',
+                success: false,
+                output: undefined,
+                error: validate2.errors
+            };
+            res.status(400).json({error: error});
+        }
+    }
+});
+
+/**
+ * Elimina un grupo
+ */
+app.delete('/groups', (req, res) => {
+    const gestor = new Gestor();
+    if(req.query.nombre){
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    gestor.deleteGrupo(nombre, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+    }else if(req.query.id){
+    //Por Id
+    const id = req.query.id.toString();
+    gestor.deleteGrupo(id, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+
+    }else{
+        const outputError: ResponseType<string> = {
+            type: 'remove',
+            success: false,
+            output: undefined,
+            error: 'Un nombre o un id deben ser introducidos'
+        }
+        res.status(400).send({
+            error: outputError
+        })
+    }  
+});
+
+/**
+ * Modifica un grupo
+ */
+app.patch('/groups', (req, res) => {
+    if (!req.body) {
+        const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del grupo a modificar'
+        }
+        res.status(400).send({
+            error: error
+        })
+    }else {
+        const isValid = validate2(req.body);
+        const grupoData: IGrupoData = req.body;
+        if (isValid){
+            const gestor = new Gestor();
+            if(req.query.nombre){
+            //Por Nombre
+            const nombre = req.query.nombre;
+            const newGrupo = new Grupo("",[]).parse(grupoData);
+            gestor.modifyGrupo(nombre, newGrupo, (err, result) => {
+                if (err) {
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            })
+            
+            }else if(req.query.id){
+            //Por Id
+            const id = req.query.id;
+            const newGrupo = new Grupo("",[]).parse(grupoData);
+            gestor.modifyGrupo(id, newGrupo, (err, result) => {
+                if (err) {
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            })
+            }
+        } else{
+            const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+                type: 'update',
+                success: false,
+                output: undefined,
+                error: validate2.errors
+            };
+            res.status(400).json({error: error});
+        } 
+    }
+});
 /**********************RETOS********************************/
+/**
+ * Schema to validate json files
+ */
+const schema_reto = {
+    type: 'object',
+    properties: {
+        id: { id: 'string' },
+        nombre: { nombre: 'string' },
+        rutas: { miembrosID: 'string[]' },
+        actividad: { propietariosID: 'string' },
+        total: { estadisticas: 'EstadisticasEntrenamiento' },
+        usuarios: { ranking: 'string[]' },
+    },
+    required: ['id','nombre','rutas','actividad','total','usuarios'],
+};
+const validate3 = ajv.compile(schema_reto);
 
+/**
+ * Lista un reto
+ */
+app.get('/challenges', (req, res) => {
+    const gestor = new Gestor();
+    if(req.query.nombre){
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    gestor.showReto(nombre, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+    }else if(req.query.id){
+    //Por Id
+    const id = req.query.id.toString();
+    gestor.showReto(id, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+
+    }else{
+        const outputError: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: 'Un nombre o un id deben ser introducidos'
+        }
+        res.status(400).send({
+            error: outputError
+        })
+    }
+})
+
+/**
+ * Añade un reto
+ */
+app.post('/challenges', (req, res) => {
+    if (!req.body) {
+        const error: ResponseType<string> = {
+            type: 'add',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del reto'
+        }
+        res.status(400).send({
+            error: error
+        })
+    } else {
+        const gestor = new Gestor();
+        const challengeData: IRetoData = req.body;
+        const isValid = validate3(req.body);
+        if (isValid) {
+            const newReto = new Reto("",[], Actividad.Correr,[]).parse(challengeData);
+            gestor.addReto(newReto, (err, result) => {
+                if(err){
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            });
+        } else {
+            const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+                type: 'add',
+                success: false,
+                output: undefined,
+                error: validate3.errors
+            };
+            res.status(400).json({error: error});
+        }
+    }
+});
+
+/**
+ * Elimina un reto
+ */
+app.delete('/challenges', (req, res) => {
+    const gestor = new Gestor();
+    if(req.query.nombre){
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    gestor.deleteReto(nombre, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+    }else if(req.query.id){
+    //Por Id
+    const id = req.query.id.toString();
+    gestor.deleteReto(id, (error, outputMessage) => {
+        if (error){
+            res.status(500).send({error: error});
+        } else{
+            res.send({response: outputMessage});
+        }
+    });
+
+    }else{
+        const outputError: ResponseType<string> = {
+            type: 'remove',
+            success: false,
+            output: undefined,
+            error: 'Un nombre o un id deben ser introducidos'
+        }
+        res.status(400).send({
+            error: outputError
+        })
+    }  
+});
+
+/**
+ * Modifica un reto
+ */
+app.patch('/challenges', (req, res) => {
+    if (!req.body) {
+        const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del reto a modificar'
+        }
+        res.status(400).send({
+            error: error
+        })
+    }else {
+        const isValid = validate3(req.body);
+        const challengeData: IRetoData = req.body;
+        if (isValid){
+            const gestor = new Gestor();
+            if(req.query.nombre){
+            //Por Nombre
+            const nombre = req.query.nombre;
+            const newReto = new Reto("",[],Actividad.Correr,[]).parse(challengeData);
+            gestor.modifyReto(nombre, newReto, (err, result) => {
+                if (err) {
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            })
+            
+            }else if(req.query.id){
+            //Por Id
+            const id = req.query.id;
+            const newReto = new Reto("",[],Actividad.Correr,[]).parse(challengeData);
+            gestor.modifyReto(id, newReto, (err, result) => {
+                if (err) {
+                    res.status(500).json({error: err});
+                } else {
+                    res.send({response: result});
+                }
+            })
+            }
+        } else{
+            const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+                type: 'update',
+                success: false,
+                output: undefined,
+                error: validate3.errors
+            };
+            res.status(400).json({error: error});
+        } 
+    }
+});
 /**
  * Default route that returns 404 Not Found
  */
