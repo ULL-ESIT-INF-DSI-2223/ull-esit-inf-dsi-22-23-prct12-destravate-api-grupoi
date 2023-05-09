@@ -7,7 +7,7 @@ import { GeneradorIdUnicos } from "./GeneradorIdUnicos.js"
  * @param latitud
  * @param longitud
  */
-export interface Geolocalizacion{
+export interface Geolocalizacion {
     latitud: number;
     longitud: number;
 }
@@ -31,7 +31,7 @@ export interface IRutaData {
  * @class
  * @implements - @interface IRutaData
  */
-export class Ruta implements IRutaData{
+export class Ruta implements IRutaData {
     private _id: string;
     private _nombre: string;
     private _inicio: Geolocalizacion;
@@ -53,19 +53,21 @@ export class Ruta implements IRutaData{
      * @param actividad Tipo de actividad: Indicador si la ruta se puede realizar en bicicleta o corriendo
      * @param calificacion Calificación media de la ruta
      */
-    constructor(nombre: string, inicio: Geolocalizacion, final: Geolocalizacion, longitud: number, desnivel: number, usuarios: string[], actividad: Actividad, calificacion: number) {
+    constructor(nombre: string, inicio: Geolocalizacion, final: Geolocalizacion, longitud: number, desnivel: number, usuarios: string[], actividad: Actividad, calificacion: number, generateID?: boolean) {
+      if (generateID) {
         // Se genera el id único
         let generadorId = GeneradorIdUnicos.getInstance();
         this._id = generadorId.generateUniqueId();
-
-        this._nombre = nombre;
-        this._inicio = inicio;
-        this._final = final;
-        this._longitud = longitud;
-        this._desnivel = desnivel;
-        this._usuarios = usuarios;
-        this._actividad = actividad;
-        this._calificacion = calificacion;
+      }
+    
+      this._nombre = nombre;
+      this._inicio = inicio;
+      this._final = final;
+      this._longitud = longitud;
+      this._desnivel = desnivel;
+      this._usuarios = usuarios;
+      this._actividad = actividad;
+      this._calificacion = calificacion;
     }
     /**
      * Metodo que parsea una Ruta recibiendo data

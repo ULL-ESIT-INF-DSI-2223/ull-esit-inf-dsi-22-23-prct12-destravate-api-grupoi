@@ -19,7 +19,7 @@ export interface IGrupoData {
  * @class
  * @implements - @interface IGrupoData
  */
-export class Grupo implements IGrupoData{
+export class Grupo implements IGrupoData {
   private _id: string;
   private _nombre: string;
   private _miembrosID: string[];
@@ -36,10 +36,12 @@ export class Grupo implements IGrupoData{
    * @param {string} nombre - Nombre del grupo
    * @param {string[]} miembrosID - Identificadores de los miembros del grupo (por defecto [])
    */
-  constructor(nombre: string, miembrosID: string[] = []) {
-    // Se genera el id único
-    let generadorId = GeneradorIdUnicos.getInstance();
-    this._id = generadorId.generateUniqueId();
+  constructor(nombre: string, miembrosID: string[] = [], generateID?: boolean) {
+    if (generateID) {
+      // Se genera el id único
+      let generadorId = GeneradorIdUnicos.getInstance();
+      this._id = generadorId.generateUniqueId();
+    }
 
     this._nombre = nombre;
     this._miembrosID = miembrosID;
