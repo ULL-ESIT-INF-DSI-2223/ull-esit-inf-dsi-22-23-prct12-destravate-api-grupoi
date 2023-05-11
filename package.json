@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "App": "tsc-watch --onSuccess \"node dist/App.js\"",
     "start": "tsc-watch --onSuccess \"node dist/index.js\"",
     "prettier": "npx prettier --write .",
     "test": "mocha",
@@ -34,6 +35,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-    "mongodb": "^5.4.0"
+    "mongodb": "^5.4.0",
+    "mongoose": "^7.1.0"
   }
 }

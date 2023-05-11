@@ -7,6 +7,8 @@ import { IRutaData, Ruta, Geolocalizacion } from './Ruta.js';
 import { IGrupoData } from './Grupo.js';
 import { IRetoData } from './Reto.js';
 import { IUsuarioData, Usuario } from './Usuario.js';
+import { RutaModel } from './RutaModel.js';
+import mongoose, { Document, connect, model, Schema } from 'mongoose';
 
 import Ajv from 'ajv';
 import { Grupo } from './Grupo.js';
@@ -21,16 +23,25 @@ const ajv = new Ajv();
  */
 app.use(bodyParser.json());
 
+/**
+ * Para conectarse a la base de datos
+ */
+connect('mongodb://127.0.0.1:27017/actividadesDeportivas').then(() => {
+  console.log('Connected to the database');
+}).catch(() => {
+  console.log('Something went wrong when conecting to the database');
+});
 
 /**********************RUTAS********************************/
 
 /**
  * Esquema para validar JSON's de rutas
  */
+
 const schemaTrack = {
   type: 'object',
   properties: {
-      id: { id: 'string' },
+      //id: { id: 'string' },
       nombre: { nombre: 'string' },
       inicio: { inicio: 'Geolocalizacion' },
       final: { final: 'Geolocalizacion' },
@@ -40,58 +51,92 @@ const schemaTrack = {
       actividad: { actividad: 'Actividad' },
       calificacion: { calificacion: 'number' },
   },
-  required: ['id','nombre','inicio','final','longitud','desnivel','usuarios','actividad','calificacion'],
+  required: [/*'id',*/'nombre','inicio','final','longitud','desnivel','usuarios','actividad','calificacion'],
 };
 const validateTrack = ajv.compile(schemaTrack);
+
 
 /**
  * Lista un track
  */
 app.get('/tracks', async (req, res) => {
   const gestor = new GestorManager();
-  if (req.query.nombre === "*" || req.query.id === "*") {
-    try {
-      const result = await gestor.showTrack("", "*");
-      res.send({ response: result });
-    } catch (err) {
-      res.status(500).send({ error: err});
-    }
+  if (req.query.nombre == undefined && req.query.id == undefined) {
+    RutaModel.find()
+    .then((result) => {
+        res.status(200).send(result);
+    })
+    .catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+    }); 
   } else {
     if (req.query.nombre) {
       //Por Nombre
       const nombre = req.query.nombre.toString();
-      try {
-        const result = await gestor.showTrack(nombre, "nombre");
-        res.send({ response: result });
-      } catch (err) {
-        res.status(500).send({ error: err});
-      }
+      RutaModel.findOne({nombre: nombre}).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El nombre no coincide cn ninguna ruta"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
     } else if (req.query.id) {
       //Por Id
       const id = req.query.id.toString();
-      try {
-        const result = await gestor.showTrack(id, "id");
-        res.send({ response: result });
-      } catch (err) {
-        res.status(500).send({ error: err});
-      }
-    } else {
-      const outputError: ResponseType<string> = {
-        type: 'read',
-        success: false,
-        output: undefined,
-        error: 'Un nombre o un id deben ser introducidos'
-      }
-      res.status(400).send({ error: outputError })
+      RutaModel.findById( id).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El id no coincide con ninguna ruta"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
     }
   }
 });
 
+/*
 /**
  * Añade un track
  */
 app.post('/tracks', async (req, res) => {
-  if (!req.body) {
+  
+  if (req.body == JSON.stringify({})) {
     const error: ResponseType<string> = {
       type: 'add',
       success: false,
@@ -100,22 +145,21 @@ app.post('/tracks', async (req, res) => {
     }
     res.status(400).send({ error: error })
   } else {
-    const gestor = new GestorManager();
-    const trackData: IRutaData = req.body;
+    const trackData = new RutaModel(req.body);
     const isValid = validateTrack(req.body);
-    const geo: Geolocalizacion = {
-      latitud: 0,
-      longitud: 0
-    };
     
     if (isValid) {
-      const newTrack = new Ruta("", geo, geo, 0, 0, [], Actividad.Correr, 0, true).parse(trackData);
-      try {
-        const result = await gestor.addTrack(newTrack);
-        res.send({ response: result });
-      } catch (err) {
-        res.status(500).json({ error: err});
-      }
+      trackData.save().then((RutaGuardada) => {
+        res.status(200).send(RutaGuardada);
+      }).catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'add',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
     } else {
       const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
         type: 'add',
@@ -132,25 +176,55 @@ app.post('/tracks', async (req, res) => {
  * Elimina un track
  */
 app.delete('/tracks', async (req, res) => {
-  const gestor = new GestorManager();
+  
   if (req.query.nombre) {
     //Por Nombre
     const nombre = req.query.nombre.toString();
-    try {
-      const result = await gestor.deleteUser(nombre, "nombre");
-      res.send({ response: result });
-    } catch (err) {
-      res.status(500).send({ error: err});
-    }
+    RutaModel.deleteOne({nombre: nombre}).then((result) => {
+      if(result.deletedCount == 1){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ninguna ruta"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
   } else if (req.query.id) {
     //Por Id
     const id = req.query.id.toString();
-    try {
-      const result = await gestor.deleteUser(id, "id");
-      res.send({ response: result });
-    } catch (err) {
-      res.status(500).send({ error: err});
-    }
+    RutaModel.findByIdAndDelete(id).then((result) => {
+      if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ninguna ruta"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
   } else {
     const outputError: ResponseType<string> = {
       type: 'remove',
@@ -166,7 +240,8 @@ app.delete('/tracks', async (req, res) => {
  * Modifica una ruta
  */
 app.patch('/tracks', async (req, res) => {
-  if (!req.body) {
+  
+  if (JSON.stringify(req.body) == "{}") {
     const error: ResponseType<string> = {
       type: 'update',
       success: false,
@@ -175,54 +250,67 @@ app.patch('/tracks', async (req, res) => {
     }
     res.status(400).send({ error: error })
   } else {
-    const isValid = validateTrack(req.body);
-    const rutaData: IRutaData = req.body;
-    if (isValid) {
-      const gestor = new GestorManager();
-      const geo: Geolocalizacion = {
-        latitud: 0,
-        longitud: 0
-      };
-    
-      if (req.query.nombre) {
-        //Por Nombre
-        const nombre = req.query.nombre.toString();
-        const newTrack = new Ruta("", geo, geo, 0, 0, [], Actividad.Correr, 0).parse(rutaData);
-        try {
-          const result = await gestor.updateTrack(nombre, newTrack, "nombre");
-          res.send({ response: result });
-        } catch (err) {
-          res.status(500).send({ error: err});
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      const aModificar = req.body;
+      RutaModel.updateOne({nombre: nombre}, aModificar).then((result) => {
+        if(result.modifiedCount >= 1){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: "El nombre o el elemento a modificar no coinciden con ninguna ruta"
+          };
+          res.status(400).send({ error: error });
         }
+      }).catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
           
-      } else if (req.query.id) {
-        //Por Id
-        const id = req.query.id.toString();
-        const newTrack = new Ruta("", geo, geo, 0, 0, [], Actividad.Correr, 0).parse(rutaData);
-        try {
-          const result = await gestor.updateTrack(id, newTrack, "id");
-          res.send({ response: result });
-        } catch (err) {
-          res.status(500).send({ error: err});
-        }
-      } else { 
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      const aModificar = req.body;
+
+      RutaModel.findByIdAndUpdate( id, aModificar).then((result) => {
+        if(result != null){
+          res.status(200).send(result);
+      }else{
         const error: ResponseType<string> = {
           type: 'update',
           success: false,
           output: undefined,
-          error: 'Debe introducir la id o el nombre de la ruta a modificar'
-        }
-        res.status(400).send({ error: error })
+          error: "El nombre o el elemento a modificar no coinciden con ninguna ruta"
+        };
+        res.status(400).send({ error: error });
       }
-    } else {
+    }).catch((err) => {
       const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
         type: 'update',
         success: false,
         output: undefined,
-        error: validateTrack.errors
+        error: err
       };
-      res.status(400).json({error: error});
-    } 
+      res.status(400).send({ error: error });
+    });
+    } else { 
+      const error: ResponseType<string> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: 'Debe introducir la id o el nombre de la ruta a modificar'
+      }
+      res.status(400).send({ error: error })
+    }
   }
 });
 
