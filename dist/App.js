@@ -2,9 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { GestorManager } from './Gestor.js';
 import { Usuario } from './Usuario.js';
-import { RutaModel } from './RutaModel.js';
+import { RutaModel } from './Modelos/RutaModel.js';
 import { connect } from 'mongoose';
 import Ajv from 'ajv';
+import { UsuarioModel } from './Modelos/UsuarioModel.js';
+import { GrupoModel } from './Modelos/GrupoModel.js';
+import { RetoModel } from './Modelos/RetoModel.js';
 export const app = express();
 const ajv = new Ajv();
 /**
@@ -121,7 +124,7 @@ app.get('/tracks', async (req, res) => {
  * Añade un track
  */
 app.post('/tracks', async (req, res) => {
-    if (req.body == JSON.stringify({})) {
+    if (JSON.stringify(req.body) == "{}") {
         const error = {
             type: 'add',
             success: false,
@@ -309,7 +312,7 @@ app.patch('/tracks', async (req, res) => {
 const schema_user = {
     type: 'object',
     properties: {
-        id: { id: 'string' },
+        /*id: { id: 'string' },*/
         nombre: { nombre: 'string' },
         actividad: { actividad: 'Actividad' },
         amigos: { amigos: 'string[]' },
@@ -319,14 +322,14 @@ const schema_user = {
         retos: { retos: 'string[]' },
         historicoRutas: { historicoRutas: 'Map<string, string[]>' },
     },
-    required: ['id', 'nombre', 'actividad', 'amigos', 'grupos', 'estadisticas', 'rutas', 'retos', 'historicoRutas'],
+    required: ['nombre', 'actividad', 'amigos', 'grupos', 'estadisticas', 'rutas', 'retos', 'historicoRutas'],
 };
 const validateUser = ajv.compile(schema_user);
 /**
  * Añade un usuario
  */
 app.post('/users', async (req, res) => {
-    if (!req.body) {
+    if (JSON.stringify(req.body) == "{}") {
         const error = {
             type: 'add',
             success: false,
@@ -336,22 +339,20 @@ app.post('/users', async (req, res) => {
         res.status(400).send({ error: error });
     }
     else {
-        const gestor = new GestorManager();
-        const userData = req.body;
+        const userData = new UsuarioModel(req.body);
         const isValid = validateUser(req.body);
-        const geo = {
-            latitud: 0,
-            longitud: 0
-        };
         if (isValid) {
-            const newUser = new Usuario("").parse(userData);
-            try {
-                const result = await gestor.addUser(newUser);
-                res.send({ response: result });
-            }
-            catch (err) {
-                res.status(500).json({ error: err });
-            }
+            userData.save().then((UsuarioGuardado) => {
+                res.status(200).send(UsuarioGuardado);
+            }).catch((err) => {
+                const error = {
+                    type: 'add',
+                    success: false,
+                    output: undefined,
+                    error: err
+                };
+                res.status(400).send({ error: error });
+            });
         }
         else {
             const error = {
@@ -465,6 +466,115 @@ app.patch('/users', async (req, res) => {
                 error: validateUser.errors
             };
             res.status(400).json({ error: error });
+        }
+    }
+});
+/**********************Grupos********************************/
+const schemaGroup = {
+    type: 'object',
+    properties: {
+        nombre: { nombre: 'string' },
+        miembrosID: { miembrosID: 'string[]' },
+        propietarioID: { propietarioID: 'string' },
+        estadisticas: { estadisticas: 'EstadisticasEntrenamiento' },
+        ranking: { ranking: 'string[]' },
+        rutasFav: { rutasFav: 'string[]' },
+        historicoRutas: { historicoRutas: 'Map<string, string[]>' },
+    },
+    required: ['nombre', 'miembrosID', 'propietarioID', 'estadisticas', 'ranking', 'rutasFav', 'historicoRutas'],
+};
+const validateGroup = ajv.compile(schemaGroup);
+/**
+ * Añade un Grupo
+ */
+app.post('/groups', async (req, res) => {
+    if (JSON.stringify(req.body) == "{}") {
+        const error = {
+            type: 'add',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del grupo'
+        };
+        res.status(400).send({ error: error });
+    }
+    else {
+        const groupData = new GrupoModel(req.body);
+        const isValid = validateGroup(req.body);
+        if (isValid) {
+            groupData.save().then((GrupoGuardado) => {
+                res.status(200).send(GrupoGuardado);
+            }).catch((err) => {
+                const error = {
+                    type: 'add',
+                    success: false,
+                    output: undefined,
+                    error: err
+                };
+                res.status(400).send({ error: error });
+            });
+        }
+        else {
+            const error = {
+                type: 'add',
+                success: false,
+                output: undefined,
+                error: validateTrack.errors
+            };
+            res.status(400).send({ error: error });
+        }
+    }
+});
+/**********************RETOS********************************/
+const schemaReto = {
+    type: 'object',
+    properties: {
+        nombre: { nombre: 'string' },
+        rutas: { rutas: 'string[]' },
+        actividad: { actividad: 'Actividad' },
+        total: { total: 'number' },
+        usuarios: { usuarios: 'string[]' },
+    },
+    required: ['nombre', 'rutas', 'actividad', 'total', 'usuarios'],
+};
+const validateReto = ajv.compile(schemaReto);
+/**
+ * Añade un reto
+ */
+app.post('/retos', async (req, res) => {
+    if (JSON.stringify(req.body) == "{}") {
+        const error = {
+            type: 'add',
+            success: false,
+            output: undefined,
+            error: 'Debe introducir los datos del reto'
+        };
+        res.status(400).send({ error: error });
+    }
+    else {
+        const retoData = new RetoModel(req.body);
+        const isValid = validateReto(req.body);
+        console.log(isValid);
+        if (isValid) {
+            retoData.save().then((RetoGuardado) => {
+                res.status(200).send(RetoGuardado);
+            }).catch((err) => {
+                const error = {
+                    type: 'add',
+                    success: false,
+                    output: undefined,
+                    error: err
+                };
+                res.status(400).send({ error: error });
+            });
+        }
+        else {
+            const error = {
+                type: 'add',
+                success: false,
+                output: undefined,
+                error: validateTrack.errors
+            };
+            res.status(400).send({ error: error });
         }
     }
 });

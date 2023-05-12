@@ -1,6 +1,6 @@
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
-import { Geolocalizacion } from './Ruta.js';
-import { Actividad } from './Actividad.js';
+import { Geolocalizacion } from '../Ruta.js';
+import { Actividad } from '../Actividad.js';
 
 export interface RutaDocument extends mongoose.Document {
     nombre: string;
