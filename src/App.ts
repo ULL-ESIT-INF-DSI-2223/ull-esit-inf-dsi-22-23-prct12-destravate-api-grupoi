@@ -63,7 +63,6 @@ const validateTrack = ajv.compile(schemaTrack);
  * Lista un track
  */
 app.get('/tracks', async (req, res) => {
-  const gestor = new GestorManager();
   if (req.query.nombre == undefined && req.query.id == undefined) {
     RutaModel.find()
     .then((result) => {
@@ -379,28 +378,58 @@ app.post('/users', async (req, res) => {
 });
 
 /**
- * Elimina un usuario
+ * Elimina un Usuario
  */
 app.delete('/users', async (req, res) => {
-  const gestor = new GestorManager();
+  
   if (req.query.nombre) {
     //Por Nombre
     const nombre = req.query.nombre.toString();
-    try {
-      const result = await gestor.deleteUser(nombre, "nombre");
-      res.send({ response: result });
-    } catch (err) {
-      res.status(500).send({ error: err});
-    }
+    UsuarioModel.deleteOne({nombre: nombre}).then((result) => {
+      if(result.deletedCount == 1){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun usuario"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
   } else if (req.query.id) {
     //Por Id
     const id = req.query.id.toString();
-    try {
-      const result = await gestor.deleteUser(id, "id");
-      res.send({ response: result });
-    } catch (err) {
-      res.status(500).send({ error: err});
-    }
+    UsuarioModel.findByIdAndDelete(id).then((result) => {
+      if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun usuario"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
   } else {
     const outputError: ResponseType<string> = {
       type: 'remove',
@@ -413,10 +442,84 @@ app.delete('/users', async (req, res) => {
 });
 
 /**
- * Modifica un usuario
+ * Lista un Usuario
+ */
+app.get('/users', async (req, res) => {
+  if (req.query.nombre == undefined && req.query.id == undefined) {
+    UsuarioModel.find()
+    .then((result) => {
+        res.status(200).send(result);
+    })
+    .catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+    }); 
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      UsuarioModel.findOne({nombre: nombre}).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El nombre no coincide cn ningun usuario"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      UsuarioModel.findById( id).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El id no coincide con ningun usuario"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    }
+  }
+});
+
+/**
+ * Modifica una Usuarios
  */
 app.patch('/users', async (req, res) => {
-  if (!req.body) {
+  
+  if (JSON.stringify(req.body) == "{}") {
     const error: ResponseType<string> = {
       type: 'update',
       success: false,
@@ -425,54 +528,67 @@ app.patch('/users', async (req, res) => {
     }
     res.status(400).send({ error: error })
   } else {
-    const isValid = validateUser(req.body);
-    const userData: IUsuarioData = req.body;
-    if (isValid) {
-      const gestor = new GestorManager();
-      const geo: Geolocalizacion = {
-        latitud: 0,
-        longitud: 0
-      };
-    
-      if (req.query.nombre) {
-        //Por Nombre
-        const nombre = req.query.nombre.toString();
-        const newUser = new Usuario("").parse(userData);
-        try {
-          const result = await gestor.updateUser(nombre, newUser, "nombre");
-          res.send({ response: result });
-        } catch (err) {
-          res.status(500).send({ error: err});
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      const aModificar = req.body;
+      UsuarioModel.updateOne({nombre: nombre}, aModificar).then((result) => {
+        if(result.modifiedCount >= 1){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: "El nombre o el elemento a modificar no coinciden con ningun usuario"
+          };
+          res.status(400).send({ error: error });
         }
+      }).catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
           
-      } else if (req.query.id) {
-        //Por Id
-        const id = req.query.id.toString();
-        const newUser = new Usuario("").parse(userData);
-        try {
-          const result = await gestor.updateUser(id, newUser, "id");
-          res.send({ response: result });
-        } catch (err) {
-          res.status(500).send({ error: err});
-        }
-      } else { 
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      const aModificar = req.body;
+
+      UsuarioModel.findByIdAndUpdate( id, aModificar).then((result) => {
+        if(result != null){
+          res.status(200).send(result);
+      }else{
         const error: ResponseType<string> = {
           type: 'update',
           success: false,
           output: undefined,
-          error: 'Debe introducir la id o el nombre del usuario a modificar'
-        }
-        res.status(400).send({ error: error })
+          error: "El nombre o el elemento a modificar no coinciden con ningun usuario"
+        };
+        res.status(400).send({ error: error });
       }
-    } else {
+    }).catch((err) => {
       const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
         type: 'update',
         success: false,
         output: undefined,
-        error: validateUser.errors
+        error: err
       };
-      res.status(400).json({error: error});
-    } 
+      res.status(400).send({ error: error });
+    });
+    } else { 
+      const error: ResponseType<string> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: 'Debe introducir la id o el nombre del usuario a modificar'
+      }
+      res.status(400).send({ error: error })
+    }
   }
 });
 
@@ -535,9 +651,220 @@ app.post('/groups', async (req, res) => {
   }
 });
 
+/**
+ * Elimina un grupo
+ */
+app.delete('/groups', async (req, res) => {
+  
+  if (req.query.nombre) {
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    GrupoModel.deleteOne({nombre: nombre}).then((result) => {
+      if(result.deletedCount == 1){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun grupo"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+  } else if (req.query.id) {
+    //Por Id
+    const id = req.query.id.toString();
+    GrupoModel.findByIdAndDelete(id).then((result) => {
+      if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun grupo"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+  } else {
+    const outputError: ResponseType<string> = {
+      type: 'remove',
+      success: false,
+      output: undefined,
+      error: 'Un nombre o un id deben ser introducidos'
+    }
+    res.status(400).send({ error: outputError })
+  }  
+});
 
+/**
+ * Lista un grupo
+ */
+app.get('/groups', async (req, res) => {
+  if (req.query.nombre == undefined && req.query.id == undefined) {
+    GrupoModel.find()
+    .then((result) => {
+        res.status(200).send(result);
+    })
+    .catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+    }); 
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      GrupoModel.findOne({nombre: nombre}).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El nombre no coincide cn ninguna Grupo"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      GrupoModel.findById( id).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El id no coincide con ningun grupo"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    }
+  }
+});
 
+/**
+ * Modifica un grupo
+ */
+app.patch('/groups', async (req, res) => {
+  
+  if (JSON.stringify(req.body) == "{}") {
+    const error: ResponseType<string> = {
+      type: 'update',
+      success: false,
+      output: undefined,
+      error: 'Debe introducir los datos del grupo a modificar'
+    }
+    res.status(400).send({ error: error })
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      const aModificar = req.body;
+      GrupoModel.updateOne({nombre: nombre}, aModificar).then((result) => {
+        if(result.modifiedCount >= 1){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: "El nombre o el elemento a modificar no coinciden con ningun grupo"
+          };
+          res.status(400).send({ error: error });
+        }
+      }).catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+          
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      const aModificar = req.body;
 
+      GrupoModel.findByIdAndUpdate( id, aModificar).then((result) => {
+        if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: "El nombre o el elemento a modificar no coinciden con ningun grupo"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+    } else { 
+      const error: ResponseType<string> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: 'Debe introducir la id o el nombre del grupo a modificar'
+      }
+      res.status(400).send({ error: error })
+    }
+  }
+});
 /**********************RETOS********************************/
 
 const schemaReto = {
@@ -594,9 +921,220 @@ app.post('/retos', async (req, res) => {
   }
 });
 
+/**
+ * Elimina un reto
+ */
+app.delete('/retos', async (req, res) => {
+  
+  if (req.query.nombre) {
+    //Por Nombre
+    const nombre = req.query.nombre.toString();
+    RetoModel.deleteOne({nombre: nombre}).then((result) => {
+      if(result.deletedCount == 1){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun reto"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+  } else if (req.query.id) {
+    //Por Id
+    const id = req.query.id.toString();
+    RetoModel.findByIdAndDelete(id).then((result) => {
+      if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'remove',
+          success: false,
+          output: undefined,
+          error: "El nombre no coincide con ningun reto"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'remove',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+  } else {
+    const outputError: ResponseType<string> = {
+      type: 'remove',
+      success: false,
+      output: undefined,
+      error: 'Un nombre o un id deben ser introducidos'
+    }
+    res.status(400).send({ error: outputError })
+  }  
+});
 
+/**
+ * Lista un reto
+ */
+app.get('/retos', async (req, res) => {
+  if (req.query.nombre == undefined && req.query.id == undefined) {
+    RetoModel.find()
+    .then((result) => {
+        res.status(200).send(result);
+    })
+    .catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+    }); 
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      RetoModel.findOne({nombre: nombre}).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El nombre no coincide cn ningun reto"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      RetoModel.findById( id).then((result) => {
+        if(result != null){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El id no coincide con ningun reto"
+          };
+          res.status(400).send({ error: error });
+        }
+      })
+      .catch((err) => {
+          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'read',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+    }
+  }
+});
 
+/**
+ * Modifica un reto
+ */
+app.patch('/retos', async (req, res) => {
+  
+  if (JSON.stringify(req.body) == "{}") {
+    const error: ResponseType<string> = {
+      type: 'update',
+      success: false,
+      output: undefined,
+      error: 'Debe introducir los datos del reto a modificar'
+    }
+    res.status(400).send({ error: error })
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      const nombre = req.query.nombre.toString();
+      const aModificar = req.body;
+      RetoModel.updateOne({nombre: nombre}, aModificar).then((result) => {
+        if(result.modifiedCount >= 1){
+            res.status(200).send(result);
+        }else{
+          const error: ResponseType<string> = {
+            type: 'update',
+            success: false,
+            output: undefined,
+            error: "El nombre o el elemento a modificar no coinciden con ningun reto"
+          };
+          res.status(400).send({ error: error });
+        }
+      }).catch((err) => {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: err
+        };
+        res.status(400).send({ error: error });
+      });
+          
+    } else if (req.query.id) {
+      //Por Id
+      const id = req.query.id.toString();
+      const aModificar = req.body;
 
+      RetoModel.findByIdAndUpdate( id, aModificar).then((result) => {
+        if(result != null){
+          res.status(200).send(result);
+      }else{
+        const error: ResponseType<string> = {
+          type: 'update',
+          success: false,
+          output: undefined,
+          error: "El nombre o el elemento a modificar no coinciden con ningun reto"
+        };
+        res.status(400).send({ error: error });
+      }
+    }).catch((err) => {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    });
+    } else { 
+      const error: ResponseType<string> = {
+        type: 'update',
+        success: false,
+        output: undefined,
+        error: 'Debe introducir la id o el nombre del reto a modificar'
+      }
+      res.status(400).send({ error: error })
+    }
+  }
+});
 
 /**
  * Default route that returns 404 Not Found
