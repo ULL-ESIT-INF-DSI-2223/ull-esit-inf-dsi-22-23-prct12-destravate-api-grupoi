@@ -18,13 +18,23 @@
 <h1>Class Grupo</h1></div>
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>Clase que representa un grupo de entrenamiento</p>
+
+<h3>Implements</h3><ul>
+<li></li>
+</ul>
+
+<h3>Interface</h3><p>IGrupoData</p>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
-<li><span class="target">Grupo</span></li></ul></section><aside class="tsd-sources">
+<li><span class="target">Grupo</span></li></ul></section>
+<section class="tsd-panel">
+<h4>Implements</h4>
+<ul class="tsd-hierarchy">
+<li><a href="../interfaces/Grupo.IGrupoData.html" class="tsd-signature-type" data-tsd-kind="Interface">IGrupoData</a></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L8">Grupo.ts:8</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L22">src/Grupo.ts:22</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -68,13 +78,15 @@
 <a href="Grupo.Grupo.html#eliminarRutasFav" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>eliminar<wbr/>Rutas<wbr/>Fav</span></a>
 <a href="Grupo.Grupo.html#ordenarRankingPorDesnivelAcumulado" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Desnivel<wbr/>Acumulado</span></a>
 <a href="Grupo.Grupo.html#ordenarRankingPorKmAcumulado" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Km<wbr/>Acumulado</span></a>
+<a href="Grupo.Grupo.html#parse" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>parse</span></a>
+<a href="Grupo.Grupo.html#toJSON" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>toJSON</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Constructors</h2>
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_Grupo">new <wbr/>Grupo<span class="tsd-signature-symbol">(</span>nombre<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, miembrosID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Grupo.Grupo.html" class="tsd-signature-type" data-tsd-kind="Class">Grupo</a><a href="#constructor.new_Grupo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_Grupo">new <wbr/>Grupo<span class="tsd-signature-symbol">(</span>nombre<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, miembrosID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, generateID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Grupo.Grupo.html" class="tsd-signature-type" data-tsd-kind="Class">Grupo</a><a href="#constructor.new_Grupo" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Constructor de la clase Grupo</p>
 </div>
@@ -88,52 +100,54 @@
 <li>
 <h5>miembrosID: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
 <div class="tsd-comment tsd-typography"><p>Identificadores de los miembros del grupo (por defecto [])</p>
-</div></li></ul></div>
+</div></li>
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> generateID: <span class="tsd-signature-type">boolean</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="Grupo.Grupo.html" class="tsd-signature-type" data-tsd-kind="Class">Grupo</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L25">Grupo.ts:25</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L39">src/Grupo.ts:39</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_estadisticas" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_estadisticas</span><a href="#_estadisticas" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_estadisticas<span class="tsd-signature-symbol">:</span> <a href="EstadisticasEntrenamiento.EstadisticasEntrenamiento.html" class="tsd-signature-type" data-tsd-kind="Class">EstadisticasEntrenamiento</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L14">Grupo.ts:14</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L28">src/Grupo.ts:28</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_historicoRutas" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_historico<wbr/>Rutas</span><a href="#_historicoRutas" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_historico<wbr/>Rutas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L18">Grupo.ts:18</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L32">src/Grupo.ts:32</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_id" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_id</span><a href="#_id" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L9">Grupo.ts:9</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L23">src/Grupo.ts:23</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_miembrosID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_miembrosID</span><a href="#_miembrosID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_miembrosID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L11">Grupo.ts:11</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L25">src/Grupo.ts:25</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_nombre" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_nombre</span><a href="#_nombre" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_nombre<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L10">Grupo.ts:10</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L24">src/Grupo.ts:24</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_propietarioID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_propietarioID</span><a href="#_propietarioID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_propietarioID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L12">Grupo.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L26">src/Grupo.ts:26</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_ranking" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_ranking</span><a href="#_ranking" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_ranking<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L16">Grupo.ts:16</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L30">src/Grupo.ts:30</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private"><a id="_rutasFav" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>_rutas<wbr/>Fav</span><a href="#_rutasFav" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">_rutas<wbr/>Fav<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L17">Grupo.ts:17</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L31">src/Grupo.ts:31</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Accessors</h2>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="estadisticas" class="tsd-anchor"></a>
@@ -144,8 +158,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna las estadísticas de los entrenamientos del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <a href="EstadisticasEntrenamiento.EstadisticasEntrenamiento.html" class="tsd-signature-type" data-tsd-kind="Class">EstadisticasEntrenamiento</a></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#estadisticas">estadisticas</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L70">Grupo.ts:70</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L121">src/Grupo.ts:121</a></li></ul></aside></li>
 <li class="tsd-signature" id="estadisticas.estadisticas-2"><span class="tsd-signature-symbol">set</span> estadisticas<span class="tsd-signature-symbol">(</span>estadisticas<span class="tsd-signature-symbol">: </span><a href="EstadisticasEntrenamiento.EstadisticasEntrenamiento.html" class="tsd-signature-type" data-tsd-kind="Class">EstadisticasEntrenamiento</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece las estadísticas de entrenamiento del grupo</p>
@@ -158,8 +173,9 @@
 <div class="tsd-comment tsd-typography"><p>Estadísticas de tipo EstadisticasEntrenamiento que se van a establecer</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#estadisticas">estadisticas</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L140">Grupo.ts:140</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L191">src/Grupo.ts:191</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="historicoRutas" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>historico<wbr/>Rutas</span><a href="#historicoRutas" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -168,8 +184,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna el historial de rutas realizadas por el grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#historicoRutas">historicoRutas</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L91">Grupo.ts:91</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L142">src/Grupo.ts:142</a></li></ul></aside></li>
 <li class="tsd-signature" id="historicoRutas.historicoRutas-2"><span class="tsd-signature-symbol">set</span> historicoRutas<span class="tsd-signature-symbol">(</span>historicoRutas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece el historial de rutas recorridas por el grupo</p>
@@ -182,8 +199,9 @@
 <div class="tsd-comment tsd-typography"><p>Un mapa donde cada entrada almacena una fecha y un array string que representa las rutas</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#historicoRutas">historicoRutas</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L164">Grupo.ts:164</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L215">src/Grupo.ts:215</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="id" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -192,8 +210,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna el id del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#id">id</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L56">Grupo.ts:56</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L107">src/Grupo.ts:107</a></li></ul></aside></li>
 <li class="tsd-signature" id="id.id-2"><span class="tsd-signature-symbol">set</span> id<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece el ID del grupo</p>
@@ -206,8 +225,9 @@
 <div class="tsd-comment tsd-typography"><p>El ID que se va a establecer</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#id">id</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L124">Grupo.ts:124</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L175">src/Grupo.ts:175</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="miembrosID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>miembrosID</span><a href="#miembrosID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -216,8 +236,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna un array con los IDs de los miembros del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#miembrosID">miembrosID</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L63">Grupo.ts:63</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L114">src/Grupo.ts:114</a></li></ul></aside></li>
 <li class="tsd-signature" id="miembrosID.miembrosID-2"><span class="tsd-signature-symbol">set</span> miembrosID<span class="tsd-signature-symbol">(</span>miembrosID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece los miembros del grupo</p>
@@ -230,8 +251,9 @@
 <li>
 <h5>miembrosID: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#miembrosID">miembrosID</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L132">Grupo.ts:132</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L183">src/Grupo.ts:183</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="nombre" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>nombre</span><a href="#nombre" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -240,8 +262,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna el nombre del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#nombre">nombre</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L49">Grupo.ts:49</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L100">src/Grupo.ts:100</a></li></ul></aside></li>
 <li class="tsd-signature" id="nombre.nombre-2"><span class="tsd-signature-symbol">set</span> nombre<span class="tsd-signature-symbol">(</span>nombre<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece el nombre del grupo</p>
@@ -254,8 +277,9 @@
 <div class="tsd-comment tsd-typography"><p>El nombre que se va a establecer</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#nombre">nombre</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L108">Grupo.ts:108</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L159">src/Grupo.ts:159</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="propietarioID" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>propietarioID</span><a href="#propietarioID" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -264,8 +288,9 @@
 <div class="tsd-comment tsd-typography"><p>Retornal el ID del propietario del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#propietarioID">propietarioID</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L98">Grupo.ts:98</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L149">src/Grupo.ts:149</a></li></ul></aside></li>
 <li class="tsd-signature" id="propietarioID.propietarioID-2"><span class="tsd-signature-symbol">set</span> propietarioID<span class="tsd-signature-symbol">(</span>ID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece el propietario del grupo</p>
@@ -278,8 +303,9 @@
 <div class="tsd-comment tsd-typography"><p>El ID del propietario del grupo</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#propietarioID">propietarioID</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L116">Grupo.ts:116</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L167">src/Grupo.ts:167</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="ranking" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ranking</span><a href="#ranking" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -288,8 +314,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna un ranking de los miembros del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#ranking">ranking</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L77">Grupo.ts:77</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L128">src/Grupo.ts:128</a></li></ul></aside></li>
 <li class="tsd-signature" id="ranking.ranking-2"><span class="tsd-signature-symbol">set</span> ranking<span class="tsd-signature-symbol">(</span>ranking<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece el ranking del grupo</p>
@@ -302,8 +329,9 @@
 <div class="tsd-comment tsd-typography"><p>Un array de strings que representa el ranking que se va a establecer</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#ranking">ranking</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L148">Grupo.ts:148</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L199">src/Grupo.ts:199</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class"><a id="rutasFav" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>rutas<wbr/>Fav</span><a href="#rutasFav" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class">
@@ -312,8 +340,9 @@
 <div class="tsd-comment tsd-typography"><p>Retorna las rutas favoritas del grupo</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#rutasFav">rutasFav</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L84">Grupo.ts:84</a></li></ul></aside></li>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L135">src/Grupo.ts:135</a></li></ul></aside></li>
 <li class="tsd-signature" id="rutasFav.rutasFav-2"><span class="tsd-signature-symbol">set</span> rutasFav<span class="tsd-signature-symbol">(</span>rutas<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Establece las rutas favoritas del grupo</p>
@@ -326,8 +355,9 @@
 <div class="tsd-comment tsd-typography"><p>Las rutas que se van a establecer como favoritas</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Implementation of <a href="../interfaces/Grupo.IGrupoData.html">IGrupoData</a>.<a href="../interfaces/Grupo.IGrupoData.html#rutasFav">rutasFav</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L156">Grupo.ts:156</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L207">src/Grupo.ts:207</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="actualizar_estadisticas" class="tsd-anchor"></a>
@@ -350,7 +380,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L274">Grupo.ts:274</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L325">src/Grupo.ts:325</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="agregarHistorico" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>agregar<wbr/>Historico</span><a href="#agregarHistorico" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -371,7 +401,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L237">Grupo.ts:237</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L288">src/Grupo.ts:288</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="agregarMiembro" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>agregar<wbr/>Miembro</span><a href="#agregarMiembro" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -388,7 +418,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L174">Grupo.ts:174</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L225">src/Grupo.ts:225</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="agregarRutasFav" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>agregar<wbr/>Rutas<wbr/>Fav</span><a href="#agregarRutasFav" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -405,7 +435,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L254">Grupo.ts:254</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L305">src/Grupo.ts:305</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="calcularDesnivelUsuario" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>calcular<wbr/>Desnivel<wbr/>Usuario</span><a href="#calcularDesnivelUsuario" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -424,7 +454,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L229">Grupo.ts:229</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L280">src/Grupo.ts:280</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="calcularKmUsuario" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>calcular<wbr/>Km<wbr/>Usuario</span><a href="#calcularKmUsuario" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -443,7 +473,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L218">Grupo.ts:218</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L269">src/Grupo.ts:269</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="eliminarMiembro" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>eliminar<wbr/>Miembro</span><a href="#eliminarMiembro" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -460,7 +490,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L185">Grupo.ts:185</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L236">src/Grupo.ts:236</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="eliminarRutasFav" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>eliminar<wbr/>Rutas<wbr/>Fav</span><a href="#eliminarRutasFav" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -477,7 +507,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L264">Grupo.ts:264</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L315">src/Grupo.ts:315</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="ordenarRankingPorDesnivelAcumulado" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Desnivel<wbr/>Acumulado</span><a href="#ordenarRankingPorDesnivelAcumulado" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -487,7 +517,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L205">Grupo.ts:205</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L256">src/Grupo.ts:256</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="ordenarRankingPorKmAcumulado" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Km<wbr/>Acumulado</span><a href="#ordenarRankingPorKmAcumulado" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -497,7 +527,38 @@
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/b072f15/src/Grupo.ts#L194">Grupo.ts:194</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L245">src/Grupo.ts:245</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="parse" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>parse</span><a href="#parse" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="parse.parse-1">parse<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="../interfaces/Grupo.IGrupoData.html" class="tsd-signature-type" data-tsd-kind="Interface">IGrupoData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Grupo.Grupo.html" class="tsd-signature-type" data-tsd-kind="Class">Grupo</a><a href="#parse.parse-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Metodo que parsea un Grupo recibiendo data</p>
+
+<h3>Returns</h3><p>Un nuevo Grupo de los datos recibidos</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>data: <a href="../interfaces/Grupo.IGrupoData.html" class="tsd-signature-type" data-tsd-kind="Interface">IGrupoData</a></h5>
+<div class="tsd-comment tsd-typography"><p>JSON data</p>
+</div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="Grupo.Grupo.html" class="tsd-signature-type" data-tsd-kind="Class">Grupo</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L64">src/Grupo.ts:64</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="toJSON" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>toJSON</span><a href="#toJSON" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="toJSON.toJSON-1">toJSON<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/Grupo.IGrupoData.html" class="tsd-signature-type" data-tsd-kind="Interface">IGrupoData</a><a href="#toJSON.toJSON-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Metodo que convierte una clase Grupo a un modelo de datos de JSON</p>
+
+<h3>Returns</h3><p>Grupo Data a modelo JSON</p>
+</div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/Grupo.IGrupoData.html" class="tsd-signature-type" data-tsd-kind="Interface">IGrupoData</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/blob/5d497f1/src/Grupo.ts#L82">src/Grupo.ts:82</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -520,11 +581,14 @@
 <li class="current"><a href="../modules.html">destravate</a>
 <ul>
 <li class="tsd-kind-module"><a href="../modules/Actividad.html">Actividad</a></li>
+<li class="tsd-kind-module"><a href="../modules/App.html">App</a></li>
 <li class="tsd-kind-module"><a href="../modules/EstadisticasEntrenamiento.html">Estadisticas<wbr/>Entrenamiento</a></li>
 <li class="tsd-kind-module"><a href="../modules/GeneradorIdUnicos.html">Generador<wbr/>Id<wbr/>Unicos</a></li>
+<li class="tsd-kind-module"><a href="../modules/Gestor.html">Gestor</a></li>
 <li class="current selected tsd-kind-module"><a href="../modules/Grupo.html">Grupo</a></li>
 <li class="tsd-kind-module"><a href="../modules/Reto.html">Reto</a></li>
 <li class="tsd-kind-module"><a href="../modules/Ruta.html">Ruta</a></li>
+<li class="tsd-kind-module"><a href="../modules/Types.html">Types</a></li>
 <li class="tsd-kind-module"><a href="../modules/Usuario.html">Usuario</a></li></ul></li></ul></div></details></nav>
 <nav class="tsd-navigation secondary menu-sticky">
 <ul>
@@ -556,7 +620,9 @@
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#eliminarMiembro" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>eliminar<wbr/>Miembro</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#eliminarRutasFav" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>eliminar<wbr/>Rutas<wbr/>Fav</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#ordenarRankingPorDesnivelAcumulado" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Desnivel<wbr/>Acumulado</a></li>
-<li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#ordenarRankingPorKmAcumulado" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Km<wbr/>Acumulado</a></li></ul></li></ul></nav></div></div>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#ordenarRankingPorKmAcumulado" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>ordenar<wbr/>Ranking<wbr/>Por<wbr/>Km<wbr/>Acumulado</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#parse" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>parse</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Grupo.Grupo.html#toJSON" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>toJSON</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="../assets/main.js"></script></body></html>

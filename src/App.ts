@@ -7,12 +7,12 @@ import { IRutaData, Ruta, Geolocalizacion } from './Ruta.js';
 import { IGrupoData } from './Grupo.js';
 import { IRetoData } from './Reto.js';
 import { IUsuarioData, Usuario } from './Usuario.js';
-import { RutaModel } from './Modelos/RutaModel.js';
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
 
 import Ajv from 'ajv';
 import { Grupo } from './Grupo.js';
 import { Reto } from './Reto.js';
+import { RutaModel } from './Modelos/RutaModel.js';
 import { UsuarioModel } from './Modelos/UsuarioModel.js';
 import { GrupoModel } from './Modelos/GrupoModel.js';
 import { RetoModel } from './Modelos/RetoModel.js';

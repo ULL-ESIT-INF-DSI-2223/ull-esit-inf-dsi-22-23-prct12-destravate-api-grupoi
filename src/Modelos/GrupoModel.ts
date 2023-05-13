@@ -2,12 +2,20 @@ import mongoose, { Document, connect, model, Schema } from 'mongoose';
 import { IUsuarioDocument } from './UsuarioModel.js';
 import { RutaDocument } from './RutaModel.js';
 
+/**
+ * @interface
+ * Interfaz para las estadisticas de entrenamiento
+ */
 interface EstadisticasEntrenamiento {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
 }
 
+/**
+ * @interface
+ * Interfaz para los datos de un grupo
+ */
 export interface IGrupoData extends mongoose.Document{
     nombre: string;
     miembrosID: IUsuarioDocument["_id"][];

@@ -3,6 +3,10 @@ import { Geolocalizacion } from '../Ruta.js';
 import { Actividad } from '../Actividad.js';
 import { IUsuarioDocument } from './UsuarioModel.js';
 
+/**
+ * @interface
+ * Interfaz para los datos de una ruta
+ */
 export interface RutaDocument extends mongoose.Document {
     nombre: string;
     inicio: Geolocalizacion;

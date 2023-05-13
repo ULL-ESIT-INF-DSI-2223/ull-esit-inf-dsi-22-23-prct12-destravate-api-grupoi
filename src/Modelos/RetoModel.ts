@@ -3,6 +3,10 @@ import { Actividad } from '../Actividad.js';
 import { RutaDocument } from './RutaModel.js';
 import { IUsuarioDocument } from './UsuarioModel.js';
 
+/**
+ * @interface
+ * Interfaz para los datos de un reto
+ */
 export interface IRetoData extends Document{
     nombre: string;
     rutas: RutaDocument["_id"][];

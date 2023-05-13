@@ -4,12 +4,20 @@ import { RutaDocument } from './RutaModel.js';
 import { IRetoData } from './RetoModel.js';
 import {IGrupoData} from './GrupoModel.js';
 
+/**
+ * @interface
+ * Interfaz para las estadisticas de entrenamiento
+ */
 export interface EstadisticasEntrenamiento {
     semana: { km: number; desnivel: number };
     mes: { km: number; desnivel: number };
     anio: { km: number; desnivel: number };
 }
 
+/**
+ * @interface
+ * Interfaz para los datos de un usuario
+ */
 export interface IUsuarioDocument extends Document {
     nombre: string;
     actividad: Actividad;
