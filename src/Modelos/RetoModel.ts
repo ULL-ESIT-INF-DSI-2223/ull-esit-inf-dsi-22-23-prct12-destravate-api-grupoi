@@ -1,12 +1,14 @@
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
 import { Actividad } from '../Actividad.js';
+import { RutaDocument } from './RutaModel.js';
+import { IUsuarioDocument } from './UsuarioModel.js';
 
 export interface IRetoData extends Document{
     nombre: string;
-    rutas: string[];
+    rutas: RutaDocument["_id"][];
     actividad: Actividad;
     total: number;
-    usuarios: string[];
+    usuarios: IUsuarioDocument["_id"][];
   }
   
   const RetoSchema = new mongoose.Schema({
@@ -14,10 +16,11 @@ export interface IRetoData extends Document{
         type: String, 
         required: true 
     },
-    rutas: {
-        type: [String], 
+    rutas: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ruta", 
         required: true 
-    },
+    }],
     actividad: {
         type: String,
         enum: Object.values(Actividad),
@@ -27,10 +30,11 @@ export interface IRetoData extends Document{
         type: Number, 
         required: true 
     },
-    usuarios: {
-        type: [String], 
+    usuarios: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Usuario", 
         required: true 
-    },
+    }],
   });
   
   export const RetoModel = mongoose.model<IRetoData>('Reto', RetoSchema);

@@ -64,11 +64,36 @@ const validateTrack = ajv.compile(schemaTrack);
  */
 app.get('/tracks', async (req, res) => {
   if (req.query.nombre == undefined && req.query.id == undefined) {
-    RutaModel.find()
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
+    try{
+      const tracks = await RutaModel.find().populate('usuarios', 'nombre');
+      res.status(200).send(tracks);
+    } catch (err) {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'read',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    } 
+  } else {
+    if (req.query.nombre) {
+      //Por Nombre
+      try{
+        const nombre = req.query.nombre.toString();
+        const tracks = await RutaModel.findOne({nombre: nombre}).populate('usuarios', 'nombre');
+        if (tracks != null){
+          res.status(200).send(tracks);
+        } else{
+          const error: ResponseType<string> = {
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: "El nombre no coincide con ninguna ruta"
+          };
+          res.status(400).send({ error: error });
+        }
+      } catch(err) {
         const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
           type: 'read',
           success: false,
@@ -76,40 +101,15 @@ app.get('/tracks', async (req, res) => {
           error: err
         };
         res.status(400).send({ error: error });
-    }); 
-  } else {
-    if (req.query.nombre) {
-      //Por Nombre
-      const nombre = req.query.nombre.toString();
-      RutaModel.findOne({nombre: nombre}).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
-          const error: ResponseType<string> = {
-            type: 'read',
-            success: false,
-            output: undefined,
-            error: "El nombre no coincide cn ninguna ruta"
-          };
-          res.status(400).send({ error: error });
-        }
-      })
-      .catch((err) => {
-          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-      });
+      }
     } else if (req.query.id) {
       //Por Id
-      const id = req.query.id.toString();
-      RutaModel.findById( id).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
+      try{
+        const id = req.query.id.toString();
+        const tracks = await RutaModel.findById(id).populate('usuarios', 'nombre');
+        if (tracks != null){
+          res.status(200).send(tracks);
+        } else{
           const error: ResponseType<string> = {
             type: 'read',
             success: false,
@@ -118,16 +118,15 @@ app.get('/tracks', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
-          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+      } catch(err) {
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
           type: 'read',
           success: false,
           output: undefined,
           error: err
-        };
+        }
         res.status(400).send({ error: error });
-      });
+      }
     }
   }
 });
@@ -446,27 +445,27 @@ app.delete('/users', async (req, res) => {
  */
 app.get('/users', async (req, res) => {
   if (req.query.nombre == undefined && req.query.id == undefined) {
-    UsuarioModel.find()
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
-        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-    }); 
+    try{
+      const users = await UsuarioModel.find().populate('rutas', 'nombre').populate('grupos', 'nombre').populate('amigos', 'nombre').populate('retos', 'nombre');
+      res.status(200).send(users);
+    } catch(err) {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'read',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    } 
   } else {
     if (req.query.nombre) {
       //Por Nombre
-      const nombre = req.query.nombre.toString();
-      UsuarioModel.findOne({nombre: nombre}).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
+      try{
+        const nombre = req.query.nombre.toString();
+        const users = await UsuarioModel.findOne({nombre: nombre}).populate('rutas', 'nombre').populate('grupos', 'nombre').populate('amigos', 'nombre').populate('retos', 'nombre');
+        if (users != null){
+          res.status(200).send(users);
+        } else {
           const error: ResponseType<string> = {
             type: 'read',
             success: false,
@@ -475,22 +474,22 @@ app.get('/users', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
-          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+      } catch(err){
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
           type: 'read',
           success: false,
           output: undefined,
           error: err
         };
         res.status(400).send({ error: error });
-      });
+      }
     } else if (req.query.id) {
       //Por Id
-      const id = req.query.id.toString();
-      UsuarioModel.findById( id).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
+      try{
+        const id = req.query.id.toString();
+        const users = await UsuarioModel.findById(id).populate('rutas', 'nombre').populate('grupos', 'nombre').populate('amigos', 'nombre').populate('retos', 'nombre');
+        if(users != null){
+          res.status(200).send(users);
         }else{
           const error: ResponseType<string> = {
             type: 'read',
@@ -500,16 +499,15 @@ app.get('/users', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
+      }catch(err){
           const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: err
         };
         res.status(400).send({ error: error });
-      });
+      }
     }
   }
 });
@@ -720,27 +718,27 @@ app.delete('/groups', async (req, res) => {
  */
 app.get('/groups', async (req, res) => {
   if (req.query.nombre == undefined && req.query.id == undefined) {
-    GrupoModel.find()
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
-        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-    }); 
+    try{
+      const groups = await GrupoModel.find().populate('miembrosID', 'nombre').populate('propietarioID', 'nombre').populate('rutasFav', 'nombre');
+      res.status(200).send(groups);
+    }catch(err) {
+      const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+        type: 'read',
+        success: false,
+        output: undefined,
+        error: err
+      };
+      res.status(400).send({ error: error });
+    }
   } else {
     if (req.query.nombre) {
       //Por Nombre
-      const nombre = req.query.nombre.toString();
-      GrupoModel.findOne({nombre: nombre}).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
+      try{
+        const nombre = req.query.nombre.toString();
+        const groups = await GrupoModel.findOne({nombre: nombre}).populate('miembrosID', 'nombre').populate('propietarioID', 'nombre').populate('rutasFav', 'nombre');
+        if (groups != null){
+          res.status(200).send(groups);
+        } else {
           const error: ResponseType<string> = {
             type: 'read',
             success: false,
@@ -749,22 +747,22 @@ app.get('/groups', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
-          const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
+      } catch(err){
+        const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
           type: 'read',
           success: false,
           output: undefined,
           error: err
         };
         res.status(400).send({ error: error });
-      });
+      }
     } else if (req.query.id) {
       //Por Id
-      const id = req.query.id.toString();
-      GrupoModel.findById( id).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
+      try{
+        const id = req.query.id.toString();
+        const groups = await GrupoModel.findById(id).populate('miembrosID', 'nombre').populate('propietarioID', 'nombre').populate('rutasFav', 'nombre');
+        if (groups != null){
+          res.status(200).send(groups);
         }else{
           const error: ResponseType<string> = {
             type: 'read',
@@ -774,16 +772,15 @@ app.get('/groups', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
+      } catch(err) {
           const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-      });
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: err
+          };
+          res.status(400).send({ error: error });
+      }
     }
   }
 });
@@ -883,7 +880,7 @@ const validateReto = ajv.compile(schemaReto);
 /**
  * Añade un reto
  */
-app.post('/retos', async (req, res) => {
+app.post('/challenges', async (req, res) => {
   
   if (JSON.stringify(req.body) == "{}") {
     const error: ResponseType<string> = {
@@ -896,7 +893,6 @@ app.post('/retos', async (req, res) => {
   } else {
     const retoData = new RetoModel(req.body);
     const isValid = validateReto(req.body);
-    console.log(isValid)
     if (isValid) {
       retoData.save().then((RetoGuardado) => {
         res.status(200).send(RetoGuardado);
@@ -924,7 +920,7 @@ app.post('/retos', async (req, res) => {
 /**
  * Elimina un reto
  */
-app.delete('/retos', async (req, res) => {
+app.delete('/challenges', async (req, res) => {
   
   if (req.query.nombre) {
     //Por Nombre
@@ -988,13 +984,12 @@ app.delete('/retos', async (req, res) => {
 /**
  * Lista un reto
  */
-app.get('/retos', async (req, res) => {
+app.get('/challenges', async (req, res) => {
   if (req.query.nombre == undefined && req.query.id == undefined) {
-    RetoModel.find()
-    .then((result) => {
-        res.status(200).send(result);
-    })
-    .catch((err) => {
+    try{
+      const retos = await RetoModel.find().populate('rutas', 'nombre').populate('usuarios', 'nombre');
+      res.status(200).send(retos);
+    } catch(err) {
         const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
           type: 'read',
           success: false,
@@ -1002,15 +997,16 @@ app.get('/retos', async (req, res) => {
           error: err
         };
         res.status(400).send({ error: error });
-    }); 
+    }
   } else {
     if (req.query.nombre) {
       //Por Nombre
-      const nombre = req.query.nombre.toString();
-      RetoModel.findOne({nombre: nombre}).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
+      try{
+        const nombre = req.query.nombre.toString();
+        const retos = await RetoModel.findOne({nombre: nombre}).populate('rutas', 'nombre').populate('usuarios', 'nombre');
+        if (retos != null){
+          res.status(200).send(retos);
+        } else{
           const error: ResponseType<string> = {
             type: 'read',
             success: false,
@@ -1019,23 +1015,23 @@ app.get('/retos', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
+      } catch(err){
           const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-      });
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: err
+          };
+          res.status(400).send({ error: error });
+      }
     } else if (req.query.id) {
       //Por Id
-      const id = req.query.id.toString();
-      RetoModel.findById( id).then((result) => {
-        if(result != null){
-            res.status(200).send(result);
-        }else{
+      try{
+        const id = req.query.id.toString();
+        const retos = await RetoModel.findById(id).populate('rutas', 'nombre').populate('usuarios', 'nombre');
+        if (retos != null){
+          res.status(200).send(retos);
+        } else{
           const error: ResponseType<string> = {
             type: 'read',
             success: false,
@@ -1044,16 +1040,15 @@ app.get('/retos', async (req, res) => {
           };
           res.status(400).send({ error: error });
         }
-      })
-      .catch((err) => {
+      } catch(err){
           const error: ResponseType<Ajv.ErrorObject[] | null | undefined> = {
-          type: 'read',
-          success: false,
-          output: undefined,
-          error: err
-        };
-        res.status(400).send({ error: error });
-      });
+            type: 'read',
+            success: false,
+            output: undefined,
+            error: err
+          };
+          res.status(400).send({ error: error });
+      }
     }
   }
 });
@@ -1061,7 +1056,7 @@ app.get('/retos', async (req, res) => {
 /**
  * Modifica un reto
  */
-app.patch('/retos', async (req, res) => {
+app.patch('/challenges', async (req, res) => {
   
   if (JSON.stringify(req.body) == "{}") {
     const error: ResponseType<string> = {

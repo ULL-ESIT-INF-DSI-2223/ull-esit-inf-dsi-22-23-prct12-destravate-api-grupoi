@@ -1,6 +1,7 @@
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
 import { Geolocalizacion } from '../Ruta.js';
 import { Actividad } from '../Actividad.js';
+import { IUsuarioDocument } from './UsuarioModel.js';
 
 export interface RutaDocument extends mongoose.Document {
     nombre: string;
@@ -8,7 +9,7 @@ export interface RutaDocument extends mongoose.Document {
     final: Geolocalizacion;
     longitud: number;
     desnivel: number;
-    usuarios: string[];
+    usuarios: IUsuarioDocument["_id"][];
     actividad: Actividad;
     calificacion: number;
   }
@@ -40,10 +41,11 @@ export const RutaSchema = new mongoose.Schema({
       type: Number,
       required: true,
     },
-    usuarios: {
-      type: [String],
+    usuarios: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
       required: true,
-    },
+    }],
     actividad: {
       type: String,
       enum: Object.values(Actividad),

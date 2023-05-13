@@ -1,4 +1,6 @@
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
+import { IUsuarioDocument } from './UsuarioModel.js';
+import { RutaDocument } from './RutaModel.js';
 
 interface EstadisticasEntrenamiento {
     semana: { km: number; desnivel: number };
@@ -8,11 +10,11 @@ interface EstadisticasEntrenamiento {
 
 export interface IGrupoData extends mongoose.Document{
     nombre: string;
-    miembrosID: string[];
-    propietarioID: string;
+    miembrosID: IUsuarioDocument["_id"][];
+    propietarioID: IUsuarioDocument["_id"];
     estadisticas: EstadisticasEntrenamiento;
     ranking: string[];
-    rutasFav: string[];
+    rutasFav: RutaDocument["_id"][];
     historicoRutas: Map<string, string[]>;
   }
   
@@ -23,12 +25,14 @@ const GrupoSchema = new mongoose.Schema({
         type: String, 
         required: true 
     },
-    miembrosID: { 
-        type: [String], 
+    miembrosID: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Usuario",
         required: true 
-    },
+    }],
     propietarioID: { 
-        type: String, 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Usuario",
         required: true 
     },
     estadisticas: { 
@@ -39,10 +43,11 @@ const GrupoSchema = new mongoose.Schema({
         type: [String], 
         required: true 
     },
-    rutasFav: { 
-        type: [String], 
+    rutasFav: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Ruta",
         required: true 
-    },
+    }],
     historicoRutas: { 
         type: Map, 
         of: [String], 

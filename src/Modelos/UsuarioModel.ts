@@ -1,5 +1,8 @@
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
 import { Actividad } from '../Actividad.js';
+import { RutaDocument } from './RutaModel.js';
+import { IRetoData } from './RetoModel.js';
+import {IGrupoData} from './GrupoModel.js';
 
 export interface EstadisticasEntrenamiento {
     semana: { km: number; desnivel: number };
@@ -7,14 +10,14 @@ export interface EstadisticasEntrenamiento {
     anio: { km: number; desnivel: number };
 }
 
-interface IUsuarioDocument extends Document {
+export interface IUsuarioDocument extends Document {
     nombre: string;
     actividad: Actividad;
-    amigos: string[];
-    grupos: string[];
+    amigos: IUsuarioDocument["_id"][];
+    grupos: IGrupoData["_id"][];
     estadisticas: EstadisticasEntrenamiento;
-    rutas: string[];
-    retos: string[];
+    rutas: RutaDocument["_id"][];
+    retos: IRetoData["_id"][];
     historicoRutas: Map<string, string[]>;
   }
   
@@ -28,27 +31,31 @@ interface IUsuarioDocument extends Document {
         enum: Object.values(Actividad),
         required: true,
     },
-    amigos: { 
-        type: [String], 
+    amigos: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Usuario",
         default: [] 
-    },
-    grupos: { 
-        type: [String], 
+    }],
+    grupos: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Grupo",
         default: [] 
-    },
+    }],
     estadisticas: {
       semana: { km: { type: Number, default: 0 }, desnivel: { type: Number, default: 0 } },
       mes: { km: { type: Number, default: 0 }, desnivel: { type: Number, default: 0 } },
       anio: { km: { type: Number, default: 0 }, desnivel: { type: Number, default: 0 } },
     },
-    rutas: { 
-        type: [String], 
+    rutas: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ruta", 
         default: [] 
-    },
-    retos: { 
-        type: [String], 
+    }],
+    retos: [{ 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reto", 
         default: [] 
-    },
+    }],
     historicoRutas: { type: Map, 
         of: [String], 
         default: new Map() 
