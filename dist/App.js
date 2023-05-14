@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { RutaModel } from './Modelos/RutaModel.js';
 import { connect } from 'mongoose';
 import Ajv from 'ajv';
+import { RutaModel } from './Modelos/RutaModel.js';
 import { UsuarioModel } from './Modelos/UsuarioModel.js';
 import { GrupoModel } from './Modelos/GrupoModel.js';
 import { RetoModel } from './Modelos/RetoModel.js';
