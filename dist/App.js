@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 /**
  * Para conectarse a la base de datos
  */
-connect('mongodb://127.0.0.1:27017/destravate-app').then(() => {
+await connect('mongodb+srv://destravate:destravateADMIN@cluster0.gsqgsdm.mongodb.net/destravate-api').then(() => {
     console.log('Connected to the database');
 }).catch(() => {
     console.log('Something went wrong when conecting to the database');
