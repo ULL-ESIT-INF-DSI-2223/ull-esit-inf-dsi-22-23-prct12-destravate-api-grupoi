@@ -36,6 +36,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/ajv": "^1.0.0",
     "ajv": "^8.12.0",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",

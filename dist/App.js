@@ -7,7 +7,7 @@ import { UsuarioModel } from './Modelos/UsuarioModel.js';
 import { GrupoModel } from './Modelos/GrupoModel.js';
 import { RetoModel } from './Modelos/RetoModel.js';
 export const app = express();
-const ajv = new Ajv();
+const ajv = new Ajv.default();
 /**
  * Esto permite analizar el body en formato json
  */
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 /**
  * Para conectarse a la base de datos
  */
-connect('mongodb://127.0.0.1:27017/actividadesDeportivas').then(() => {
+connect('mongodb://127.0.0.1:27017/destravate-app').then(() => {
     console.log('Connected to the database');
 }).catch(() => {
     console.log('Something went wrong when conecting to the database');
@@ -24,21 +24,34 @@ connect('mongodb://127.0.0.1:27017/actividadesDeportivas').then(() => {
 /**
  * Esquema para validar JSON's de rutas
  */
+const schemaGeolocalizacion = {
+    type: 'object',
+    properties: {
+        latitud: { type: 'number' },
+        longitud: { type: 'number' },
+    },
+    required: ['latitud', 'longitud'],
+};
+const schemaActividad = {
+    type: 'string',
+    enum: ['Bicicleta', 'Correr']
+};
 const schemaTrack = {
     type: 'object',
     properties: {
-        //id: { id: 'string' },
-        nombre: { nombre: 'string' },
-        inicio: { inicio: 'Geolocalizacion' },
-        final: { final: 'Geolocalizacion' },
-        longitud: { longitud: 'number' },
-        desnivel: { desnivel: 'number' },
-        usuarios: { usuarios: 'string[]' },
-        actividad: { actividad: 'Actividad' },
-        calificacion: { calificacion: 'number' },
+        nombre: { type: 'string' },
+        inicio: { $ref: 'Geolocalizacion' },
+        final: { $ref: 'Geolocalizacion' },
+        longitud: { type: 'number' },
+        desnivel: { type: 'number' },
+        usuarios: { type: 'array', items: { type: 'string' } },
+        actividad: { $ref: 'Actividad' },
+        calificacion: { type: 'number' },
     },
-    required: [/*'id',*/ 'nombre', 'inicio', 'final', 'longitud', 'desnivel', 'usuarios', 'actividad', 'calificacion'],
+    required: ['nombre', 'inicio', 'final', 'longitud', 'desnivel', 'usuarios', 'actividad', 'calificacion'],
 };
+ajv.addSchema(schemaGeolocalizacion, 'Geolocalizacion');
+ajv.addSchema(schemaActividad, 'Actividad');
 const validateTrack = ajv.compile(schemaTrack);
 /**
  * Lista un track
@@ -308,18 +321,56 @@ app.patch('/tracks', async (req, res) => {
 /**
  * Schema to validate json files
  */
+const schemaEstadisticasEntrenamiento = {
+    type: "object",
+    properties: {
+        semana: {
+            type: "object",
+            properties: {
+                km: { type: "number" },
+                desnivel: { type: "number" }
+            },
+            required: ["km", "desnivel"],
+            additionalProperties: false
+        },
+        mes: {
+            type: "object",
+            properties: {
+                km: { type: "number" },
+                desnivel: { type: "number" }
+            },
+            required: ["km", "desnivel"],
+            additionalProperties: false
+        },
+        anio: {
+            type: "object",
+            properties: {
+                km: { type: "number" },
+                desnivel: { type: "number" }
+            },
+            required: ["km", "desnivel"],
+            additionalProperties: false
+        }
+    },
+    required: ["semana", "mes", "anio"]
+};
+ajv.addSchema(schemaEstadisticasEntrenamiento, 'EstadisticasEntrenamiento');
 const schema_user = {
     type: 'object',
     properties: {
-        /*id: { id: 'string' },*/
-        nombre: { nombre: 'string' },
-        actividad: { actividad: 'Actividad' },
-        amigos: { amigos: 'string[]' },
-        grupos: { grupos: 'string[]' },
-        estadisticas: { estadisticas: 'EstadisticasEntrenamiento' },
-        rutas: { rutas: 'string[]' },
-        retos: { retos: 'string[]' },
-        historicoRutas: { historicoRutas: 'Map<string, string[]>' },
+        nombre: { type: 'string' },
+        actividad: { $ref: 'Actividad' },
+        amigos: { type: 'array', items: { type: 'string' } },
+        grupos: { type: 'array', items: { type: 'string' } },
+        estadisticas: { $ref: 'EstadisticasEntrenamiento' },
+        rutas: { type: 'array', items: { type: 'string' } },
+        retos: { type: 'array', items: { type: 'string' } },
+        historicoRutas: {
+            type: 'object',
+            patternProperties: {
+                '^[a-zA-Z0-9-_]+$': { type: 'array', items: { type: 'string' } }
+            }
+        },
     },
     required: ['nombre', 'actividad', 'amigos', 'grupos', 'estadisticas', 'rutas', 'retos', 'historicoRutas'],
 };
@@ -591,13 +642,18 @@ app.patch('/users', async (req, res) => {
 const schemaGroup = {
     type: 'object',
     properties: {
-        nombre: { nombre: 'string' },
-        miembrosID: { miembrosID: 'string[]' },
-        propietarioID: { propietarioID: 'string' },
-        estadisticas: { estadisticas: 'EstadisticasEntrenamiento' },
-        ranking: { ranking: 'string[]' },
-        rutasFav: { rutasFav: 'string[]' },
-        historicoRutas: { historicoRutas: 'Map<string, string[]>' },
+        nombre: { type: 'string' },
+        miembrosID: { type: 'array', items: { type: 'string' } },
+        propietarioID: { type: 'string' },
+        estadisticas: { $ref: 'EstadisticasEntrenamiento' },
+        ranking: { type: 'array', items: { type: 'string' } },
+        rutasFav: { type: 'array', items: { type: 'string' } },
+        historicoRutas: {
+            type: 'object',
+            patternProperties: {
+                '^[a-zA-Z0-9-_]+$': { type: 'array', items: { type: 'string' } }
+            }
+        }
     },
     required: ['nombre', 'miembrosID', 'propietarioID', 'estadisticas', 'ranking', 'rutasFav', 'historicoRutas'],
 };
@@ -869,11 +925,11 @@ app.patch('/groups', async (req, res) => {
 const schemaReto = {
     type: 'object',
     properties: {
-        nombre: { nombre: 'string' },
-        rutas: { rutas: 'string[]' },
-        actividad: { actividad: 'Actividad' },
-        total: { total: 'number' },
-        usuarios: { usuarios: 'string[]' },
+        nombre: { type: 'string' },
+        rutas: { type: 'array', items: { type: 'string' } },
+        actividad: { $ref: 'Actividad' },
+        total: { type: 'number' },
+        usuarios: { type: 'array', items: { type: 'string' } },
     },
     required: ['nombre', 'rutas', 'actividad', 'total', 'usuarios'],
 };
