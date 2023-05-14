@@ -1,8 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { RutaModel } from './Modelos/RutaModel.js';
 import { connect } from 'mongoose';
 import Ajv from 'ajv';
+import { RutaModel } from './Modelos/RutaModel.js';
 import { UsuarioModel } from './Modelos/UsuarioModel.js';
 import { GrupoModel } from './Modelos/GrupoModel.js';
 import { RetoModel } from './Modelos/RetoModel.js';
@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 /**
  * Para conectarse a la base de datos
  */
-connect('mongodb://127.0.0.1:27017/actividadesDeportivas').then(() => {
+//connect('mongodb://127.0.0.1:27017/actividadesDeportivas').then(() => {
+connect('mongodb+srv://2012ivhda:Z7ZhekVI@cluster0.qdchiek.mongodb.net/?retryWrites=true&w=majority').then(() => {
     console.log('Connected to the database');
 }).catch(() => {
     console.log('Something went wrong when conecting to the database');
