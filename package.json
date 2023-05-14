@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/App.js",
     "App": "tsc-watch --onSuccess \"node dist/App.js\"",
-    "start": "tsc-watch --onSuccess \"node dist/index.js\"",
     "prettier": "npx prettier --write .",
     "test": "mocha",
     "doc": "typedoc; touch ./docs/.nojekyll",
