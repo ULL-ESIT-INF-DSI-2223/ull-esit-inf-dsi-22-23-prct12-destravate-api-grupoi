@@ -8,7 +8,6 @@ import { IGrupoData } from './Grupo.js';
 import { IRetoData } from './Reto.js';
 import { IUsuarioData, Usuario } from './Usuario.js';
 import mongoose, { Document, connect, model, Schema } from 'mongoose';
-
 import Ajv from 'ajv';
 import { Grupo } from './Grupo.js';
 import { Reto } from './Reto.js';
