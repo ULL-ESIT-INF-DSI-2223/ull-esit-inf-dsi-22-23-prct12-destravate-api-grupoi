@@ -48,3 +48,14 @@ Esta URL se almacenó en una variable de entorno dentro de la plataforma Cyclic 
 Para el despliegue sobre esta plataforma fue necesario añadir dos script: build y start al package.json del proyecto, crear una cuenta en la plataforma y por último enlazar el repositorio público de la API.
 
 Como resultado obtuvimos una URL (https://vast-gold-brown-bear-suit.cyclic.app/) correspondiente a un servidor siempre operativo a través del cuál podremos hacer peticiones HTTP, por ejemplo, mediante el uso de ThunderClient.
+
+![Ej Cyclic](Assets/Img/cyclic.png)
+
+## Referencias
+
+* [Enunciado Práctica](https://ull-esit-inf-dsi-2223.github.io/prct12-destravate-api/)
+* [Cyclic](https://www.cyclic.sh/)
+* [MongoDB](https://www.mongodb.com/cloud/atlas/)
+* [Mongoose](https://mongoosejs.com/)
+* [Ajv Scheme Validator](https://ajv.js.org/guide/typescript.html/)
+* [Despliegue API](https://ull-esit-inf-dsi-2223.github.io/nodejs-theory/nodejs-deployment.html/)
