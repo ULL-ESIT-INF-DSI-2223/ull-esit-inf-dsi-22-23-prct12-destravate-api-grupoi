@@ -365,6 +365,24 @@ Si no se pasa ni un id ni un nombre devuelve un error también.
 
 + Populate
 
+Para realizar el populate, primero debiamos conectar los modelos de esta forma:
+` usuarios: IUsuarioDocument["_id"][];`
+
+De esta forma se conectan entre modelos y crean dependencias entre ellos.
+```ts
+    usuarios: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
+      required: true,
+    }],
+```
+
+Después de modificar los modelos, en la parte del servidor lo utilizamos de la siguiente forma:
+`const tracks = await RutaModel.find().populate('usuarios', 'nombre');`
+
+De esta forma podemos indicarle al modelo de ruta, que coja la variable usuarios y nos muestre aparte del id de los usuarios, el nombre también. Si tenemos más variables que deseamos cambiar se pueden hacer varios populates como en el caso de Usuarios:
+`const users = await UsuarioModel.find().populate('rutas', 'nombre').populate('grupos', 'nombre').populate('amigos', 'nombre').populate('retos', 'nombre');`
+
 ### Modelos
 
 Para guardar la información que se le pasa a la api, o acceder a la ya guardada, se utiliza Mongoose, y lo primero que tenemos que hacer es definir los modelos. Los modelos se definen dentro de una carpeta llamada Modelos, dentro de src, contendrá en ficheros separados, modelos para guardar con mongoose en la base de datos, los grupos, los regos, las rutas y los usuarios, así como para acceder a ellos, modificarlos y borrar. Como todos son por el estilo, pero cambiando la información que se utiliza, explicaré el de Usuarios:
@@ -466,7 +484,192 @@ Hacemos esto para los grupos, retos y rutas, pero con la información que guarda
 ![Ej PATCH](Assets/Img/rutaPatch.png)
 
 ## Pruebas de desarrollo
+Para realizar las pruebas con Mocha Chai lo primero que hemos realizado es 
+```ts
+beforeEach(async () => {
+    await UsuarioModel.deleteMany();
+    await GrupoModel.deleteMany();
+    await RutaModel.deleteMany();
+    await RetoModel.deleteMany();
+});
+```
+De esta forma vaciamos la base de datos y así puede ejecutar las pruebas más de una vez sin que haya problemas de dependencias. Vamos a explicar solo como hemos hecho las pruebas de rutas ya que el resto son iguales (grupos, retos y usuarios). Las pruebas están divididas en POST, DELETE, GET y PATCH:
 
++ POST
+```ts
+describe('POST /tracks', () => {
+    it('Should successfully create a new route', async () => {
+        await request(app).post('/tracks').send({
+            "nombre": "Ruta Prueba",
+            "inicio": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "final": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "longitud": 5,
+            "desnivel": 100,
+            "usuarios": [],
+            "actividad": "Correr",
+            "calificacion": 4
+        }).expect(200);
+    });
+});
+```
+En esta prueba simplemente creamos una nueva ruta y nos aseguramos que todo funcione correctamente.
+
++ DELETE
+```ts
+describe('DELETE /tracks', () => {
+    it('Should successfully delete a route by id', async () => {
+        const newRoute = new RutaModel({
+            "nombre": "Ruta Prueba",
+            "inicio": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "final": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "longitud": 5,
+            "desnivel": 100,
+            "usuarios": [],
+            "actividad": "Correr",
+            "calificacion": 4
+        });
+        const savedRoute = await newRoute.save();
+
+        await request(app)
+            .delete('/tracks')
+            .query({ id: savedRoute.id })
+            .expect(200);
+    });
+
+    it('Should return an error when no id is provided', async () => {
+        await request(app).delete('/tracks').expect(400);
+    });
+});
+```
+La primera prueba se asegura de eliminar un nuevo usuario sin problema y la segunda es para comprobar que haya un error cuando no se introduce ningún id.
+
++ GET
+```ts
+describe('GET /tracks', () => {
+    it('Should successfully get all routes', async () => {
+        await request(app).get('/tracks').expect(200);
+    });
+
+    it('Should successfully get a route by id', async () => {
+        const newRoute = new RutaModel({
+            "nombre": "Ruta Prueba",
+            "inicio": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "final": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "longitud": 5,
+            "desnivel": 100,
+            "usuarios": [],
+            "actividad": "Correr",
+            "calificacion": 4
+        });
+        const savedRoute = await newRoute.save();
+
+        await request(app)
+            .get('/tracks')
+            .query({ id: savedRoute.id })
+            .expect(200);
+    });
+
+    it('Should return an error when no route is found by id', async () => {
+        await request(app)
+            .get('/tracks')
+            .query({ id: 'non-existent-id' })
+            .expect(400);
+    });
+});
+```
+Aquí nos aseguramos primero de que muestre todas las rutas con éxito, luego creamos una ruta y que enseñe toda la información de esa ruta recién creada. Al final comprobamos que muestre un error si no se encuentra ninguna ruta con un id inexistente.
+
++ PATCH
+```ts
+describe('PATCH /tracks', () => {
+    it('Should successfully update a route by id', async () => {
+        const newRoute = new RutaModel({
+            "nombre": "Ruta Prueba",
+            "inicio": {
+                "latitud": 40.7128,
+                "longitud": -74.0060
+            },
+            "final": {
+            "latitud": 40.7128,
+            "longitud": -74.0060
+            },
+            "longitud": 5,
+            "desnivel": 100,
+            "usuarios": [],
+            "actividad": "Correr",
+            "calificacion": 4
+            });
+            const savedRoute = await newRoute.save();
+            await request(app)
+            .patch('/tracks')
+            .query({ id: savedRoute.id })
+            .send({
+                "nombre": "Ruta Actualizada",
+                "inicio": {
+                    "latitud": 40.7128,
+                    "longitud": -74.0060
+                },
+                "final": {
+                    "latitud": 40.7128,
+                    "longitud": -74.0060
+                },
+                "longitud": 10,
+                "desnivel": 200,
+                "usuarios": [],
+                "actividad": "Correr",
+                "calificacion": 5
+            })
+            .expect(200);
+    });
+    
+    it('Should return an error when no id is provided', async () => {
+        await request(app).patch('/tracks').expect(400);
+    });
+    
+    it('Should return an error when no route is found by id', async () => {
+        await request(app)
+            .patch('/tracks')
+            .query({ id: "idnoexistente" })
+            .send({
+                "nombre": "Ruta Actualizada",
+                "inicio": {
+                    "latitud": 40.7128,
+                    "longitud": -74.0060
+                },
+                "final": {
+                    "latitud": 40.7128,
+                    "longitud": -74.0060
+                },
+                "longitud": 10,
+                "desnivel": 200,
+                "usuarios": [],
+                "actividad": "Correr",
+                "calificacion": 5
+            })
+            .expect(400);
+    });
+});
+```
+Primera prueba modifica una ruta por el id y lo hace con éxito. Después comprueba que si no se introduce un id, devuelve un error. La última prueba es introducir un id no existente y asegurarse de que muestre un error.
+Para el resto de clases funciona de la misma manera todos.
 
 ### Ejecución pruebas
 
