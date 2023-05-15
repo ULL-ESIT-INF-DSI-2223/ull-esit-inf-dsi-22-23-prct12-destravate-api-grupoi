@@ -468,29 +468,29 @@ Hacemos esto para los grupos, retos y rutas, pero con la información que guarda
 ### Operación POST
 
 <p align="center">
-    ![rutaPost](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/117a03ef-d36e-4817-be82-eae4c227b851)
+    <img width="754" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/6c7ba391-75bf-4b9c-b5ea-d36fc80a91c1">
 </p>
 
 <p align="center">
-   ![rutaPostDB](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/c02fe2db-fb61-46d7-bf00-bd7be7d1ebe9)
+   <img width="371" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/7ad98c7e-79fa-4ebe-9883-28b8a29cce7f">
 </p>
 
 ### Operación GET
 
 <p align="center">
-   ![rutaGet](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/3dc2ea5b-bd6d-48aa-9777-630596f488e8) 
+   <img width="737" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/a73c2d28-9098-4147-8923-6da3282b0001">
 </p>
 
 ### Operación DELETE
 
 <p align="center">
-  ![rutaDelete](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/85377543-9d77-4a39-aa1d-796e22eff690)  
+  <img width="706" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/ce08e994-b9f1-4cd7-acb3-f5caf6ae78d8">
 </p>
 
 ### Operación PATCH
 
 <p align="center">
-    ![rutaPatch](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/75a7a524-72c1-40d7-bf9b-253d6b98d7d6)
+   <img width="674" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/86f2d6e9-5d8b-4070-ad38-f26b7a9e75a9">
 </p>
 
 ## Pruebas de desarrollo
@@ -706,7 +706,7 @@ Para el proceso de despliegue del API REST se requería crear un clúster en Mon
 El primer paso fue registrarse en MongoDB Atlas y crear una organización y un proyecto. Luego, se creó un clúster compartido con el proveedor de servicios en la nube de AWS . 
 
 <p align="center">
-   ![mongodb](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/ec277d2b-acd1-42f5-abdf-7309b27ff5f6) 
+   <img width="155" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/5f3e4074-2395-4b32-8d59-f5265b7a6bbb"> 
 </p>
 
 Una vez creado el clúster se generó una URL de conexión con el nombre de usuario y contraseña de un usuario con permisos de lectura y modificación sobre la base de datos.
@@ -718,7 +718,7 @@ Para el despliegue sobre esta plataforma fue necesario añadir dos script: build
 Como resultado obtuvimos una URL (https://vast-gold-brown-bear-suit.cyclic.app/) correspondiente a un servidor siempre operativo a través del cuál podremos hacer peticiones HTTP, por ejemplo, mediante el uso de ThunderClient.
 
 <p align="center">
-    ![cyclic](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/c2efbfca-abe8-4e45-94ba-ccf7a10a4406)
+    <img width="479" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/534a8f9b-558d-4899-aedd-95200456c2c5">
 </p>
 
 ## Conclusión
