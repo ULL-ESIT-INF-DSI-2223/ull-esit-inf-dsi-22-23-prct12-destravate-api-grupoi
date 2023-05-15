@@ -5,7 +5,7 @@
 
 
 ## El GitHub Pages se encuentra en el siguiente [link](https://ull-esit-inf-dsi-2223.github.io/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/).
-## El link del vídeo explicativo es el siguiente: [link]()
+## El link del vídeo explicativo es el siguiente: [link](https://www.youtube.com/watch?v=-RE12fiT8qU&ab_channel=DiegoWiederkehrBruno)
 
 ## Introducción
 
