@@ -672,7 +672,17 @@ Primera prueba modifica una ruta por el id y lo hace con éxito. Después compru
 Para el resto de clases funciona de la misma manera todos.
 
 ### Ejecución pruebas
+<p align="center">
+    <img width="602" alt="1" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/86035b7c-3ebb-4fdb-978b-db5bd46014ca">
+</p>
 
+<p align="center">
+    <img width="338" alt="2" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/e90fde22-ff31-4b98-a3ff-e54fbea08120">
+</p>
+
+<p align="center">
+    <img width="310" alt="3" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/16d7bd6f-1dbc-4811-93c1-16f64af5730d">
+</p>
 
 ## Despliegue
 
