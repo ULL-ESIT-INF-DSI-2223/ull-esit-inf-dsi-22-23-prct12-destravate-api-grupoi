@@ -684,6 +684,11 @@ Para el resto de clases funciona de la misma manera todos.
     <img width="310" alt="3" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/16d7bd6f-1dbc-4811-93c1-16f64af5730d">
 </p>
 
+### GitHub Actions
+<p align="center">
+<img width="656" alt="image" src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/0716e6fa-6763-41d5-908e-d1accbe4f7bd">
+</p>
+
 ## Despliegue
 
 Para el proceso de despliegue del API REST se requería crear un clúster en MongoDB Atlas.
@@ -701,6 +706,9 @@ Para el despliegue sobre esta plataforma fue necesario añadir dos script: build
 Como resultado obtuvimos una URL (https://vast-gold-brown-bear-suit.cyclic.app/) correspondiente a un servidor siempre operativo a través del cuál podremos hacer peticiones HTTP, por ejemplo, mediante el uso de ThunderClient.
 
 ![Ej Cyclic](Assets/Img/cyclic.png)
+
+## Conclusión
+En esta práctica hemos podido juntar todo lo que hemos aprendido durante el curso y poder desplegar una API creada de 0 por nosotros.
 
 ## Referencias
 
