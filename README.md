@@ -708,7 +708,7 @@ Como resultado obtuvimos una URL (https://vast-gold-brown-bear-suit.cyclic.app/)
 ![Ej Cyclic](Assets/Img/cyclic.png)
 
 ## Conclusión
-En esta práctica hemos podido juntar todo lo que hemos aprendido durante el curso y poder desplegar una API creada de 0 por nosotros.
+En esta práctica hemos podido juntar todo lo que hemos aprendido durante el curso y poder desplegar una API creada de 0 por nosotros. Hemos aprendido a utilizar bien un servidor Express, la base de datos de mongoDB y mongoose. También hemos aprendido sobre el despliegue y las peticiones HTTP.
 
 ## Referencias
 
