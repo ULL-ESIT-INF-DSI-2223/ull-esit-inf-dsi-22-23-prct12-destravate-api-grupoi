@@ -467,21 +467,31 @@ Hacemos esto para los grupos, retos y rutas, pero con la información que guarda
 
 ### Operación POST
 
-![Ej POST](Assets/Img/rutaPost.png)
+<p align="center">
+    ![rutaPost](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/117a03ef-d36e-4817-be82-eae4c227b851)
+</p>
 
-![Ej POST DB](Assets/Img/rutaPostDB.png)
+<p align="center">
+   ![rutaPostDB](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/c02fe2db-fb61-46d7-bf00-bd7be7d1ebe9)
+</p>
 
 ### Operación GET
 
-![Ej GET](Assets/Img/rutaGet.png)
+<p align="center">
+   ![rutaGet](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/3dc2ea5b-bd6d-48aa-9777-630596f488e8) 
+</p>
 
 ### Operación DELETE
 
-![Ej DELETE](Assets/Img/rutaDelete.png)
+<p align="center">
+  ![rutaDelete](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/85377543-9d77-4a39-aa1d-796e22eff690)  
+</p>
 
 ### Operación PATCH
 
-![Ej PATCH](Assets/Img/rutaPatch.png)
+<p align="center">
+    ![rutaPatch](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/75a7a524-72c1-40d7-bf9b-253d6b98d7d6)
+</p>
 
 ## Pruebas de desarrollo
 Para realizar las pruebas con Mocha Chai lo primero que hemos realizado es 
@@ -695,7 +705,9 @@ Para el proceso de despliegue del API REST se requería crear un clúster en Mon
 
 El primer paso fue registrarse en MongoDB Atlas y crear una organización y un proyecto. Luego, se creó un clúster compartido con el proveedor de servicios en la nube de AWS . 
 
-![Ej Clúster](Assets/Img/mongodb.png)
+<p align="center">
+   ![mongodb](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/ec277d2b-acd1-42f5-abdf-7309b27ff5f6) 
+</p>
 
 Una vez creado el clúster se generó una URL de conexión con el nombre de usuario y contraseña de un usuario con permisos de lectura y modificación sobre la base de datos.
 
@@ -705,7 +717,9 @@ Para el despliegue sobre esta plataforma fue necesario añadir dos script: build
 
 Como resultado obtuvimos una URL (https://vast-gold-brown-bear-suit.cyclic.app/) correspondiente a un servidor siempre operativo a través del cuál podremos hacer peticiones HTTP, por ejemplo, mediante el uso de ThunderClient.
 
-![Ej Cyclic](Assets/Img/cyclic.png)
+<p align="center">
+    ![cyclic](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct12-destravate-api-grupoi/assets/117380181/c2efbfca-abe8-4e45-94ba-ccf7a10a4406)
+</p>
 
 ## Conclusión
 En esta práctica hemos podido juntar todo lo que hemos aprendido durante el curso y poder desplegar una API creada de 0 por nosotros. Hemos aprendido a utilizar bien un servidor Express, la base de datos de mongoDB y mongoose. También hemos aprendido sobre el despliegue y las peticiones HTTP.
